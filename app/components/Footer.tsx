@@ -76,7 +76,7 @@ export default function Footer() {
     <footer className="bg-white">
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-[3.75rem]">
-          <Image src="/images/LOGO.svg" alt="KT AI" width={54} height={21} />
+          <Image src="/images/logo.svg" alt="KT AI" width={54} height={21} />
           <button className="flex items-center gap-2 text-[15px] font-semibold leading-[1.3] tracking-[-0.02em]">
             패밀리 사이트
             <Image src="/images/icons/chevron_down.svg" alt="" width={24} height={24} />

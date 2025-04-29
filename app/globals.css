@@ -125,4 +125,7 @@ body {
   .exp_swiper {
     @apply transition-transform duration-700;
   }
+  .exp_swiper .swiper-slide-active {
+    @apply ml-[31rem];
+  }
 }
