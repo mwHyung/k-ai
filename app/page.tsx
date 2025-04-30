@@ -56,7 +56,6 @@ export default function Home() {
         start: `${index * 25}% top`,
         end: `${(index + 1) * 25}% top`,
         scrub: 0.5,
-        markers: true,
         onEnter: () => {
           gsap.to(section, {
             yPercent: 0,
