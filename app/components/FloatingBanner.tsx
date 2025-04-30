@@ -48,7 +48,7 @@ const FloatingBanner = () => {
         aria-label="Ask K-ON"
       >
         <span className="text-[#333333] text-sm font-normal">
-          {isVisible ? <span className="w-[1px] h-4 bg-[#333333] block text-blink" /> : "Ask K-ON"}
+          {isVisible ? <span className="w-[1px] h-4 bg-[#333333] block text-blink" /> : "무엇이든 물어보세요!"}
         </span>
         {isVisible ? (
           <div className="relative h-9 w-9 rounded-full bg-[#333333] flex items-center justify-center">
