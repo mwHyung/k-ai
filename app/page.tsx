@@ -33,7 +33,7 @@ export default function Home() {
 
     // 컨테이너의 높이를 parallax 섹션들의 높이 합으로 설정
     gsap.set(container, {
-      height: `${parallaxSections.length * 110}vh`,
+      height: `${parallaxSections.length * 100}vh`,
     });
 
     // 각 parallax 섹션의 초기 스타일 설정
@@ -53,10 +53,9 @@ export default function Home() {
       // 각 섹션의 ScrollTrigger 생성
       ScrollTrigger.create({
         trigger: container,
-        start: `${index * 31}% top`,
-        end: `${(index + 1) * 31}% top`,
-        scrub: 1,
-        markers: true,
+        start: `${index * 25}% top`,
+        end: `${(index + 1) * 25}% top`,
+        scrub: 0.5,
         onEnter: () => {
           gsap.to(section, {
             yPercent: 0,

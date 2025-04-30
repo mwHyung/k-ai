@@ -47,7 +47,7 @@ export default function ModelServices() {
       scrollTrigger: {
         trigger: section,
         start: "bottom top",
-        end: "bottom center",
+        end: "bottom bottom",
         markers: true,
         toggleActions: "play none none none",
       },

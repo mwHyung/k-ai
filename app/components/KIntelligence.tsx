@@ -27,7 +27,6 @@ const KIntelligence = () => {
         trigger: section,
         start: "bottom top",
         end: "bottom bottom",
-        markers: true,
         toggleActions: "play none none none", // Changed to only play once
       },
     });
