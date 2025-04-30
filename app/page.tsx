@@ -53,9 +53,10 @@ export default function Home() {
       // 각 섹션의 ScrollTrigger 생성
       ScrollTrigger.create({
         trigger: container,
-        start: `${index * 25}% top`,
-        end: `${(index + 1) * 25}% top`,
-        scrub: 0.5,
+        start: `${index * 31}% top`,
+        end: `${(index + 1) * 31}% top`,
+        scrub: 1,
+        markers: true,
         onEnter: () => {
           gsap.to(section, {
             yPercent: 0,

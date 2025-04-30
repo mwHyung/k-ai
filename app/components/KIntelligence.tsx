@@ -26,7 +26,8 @@ const KIntelligence = () => {
       scrollTrigger: {
         trigger: section,
         start: "bottom top",
-        end: "bottom center",
+        end: "bottom bottom",
+        markers: true,
         toggleActions: "play none none none", // Changed to only play once
       },
     });
@@ -38,6 +39,7 @@ const KIntelligence = () => {
         opacity: 1,
         y: 0,
         duration: 0.8,
+        delay: 1,
         ease: "power3.out",
       },
       0
@@ -135,7 +137,7 @@ const KIntelligence = () => {
           duration: 0.2,
           ease: "power2.out",
         },
-        2.5
+        4
       ).to(
         progressElement,
         {
@@ -143,7 +145,7 @@ const KIntelligence = () => {
           duration: 0.8,
           ease: "power2.inOut",
         },
-        2.5
+        4
       );
     }
 
@@ -162,7 +164,7 @@ const KIntelligence = () => {
             duration: 0.2,
             ease: "power2.out",
           },
-          3.6
+          4.8
         ).to(
           progressElement,
           {
@@ -170,7 +172,7 @@ const KIntelligence = () => {
             duration: 0.8,
             ease: "power2.inOut",
           },
-          3.6
+          4.8
         );
       }
     }
@@ -211,7 +213,7 @@ const KIntelligence = () => {
           duration: 0.2,
           ease: "power2.out",
         },
-        4.2
+        5.2
       ).to(
         progressElement,
         {
@@ -219,7 +221,7 @@ const KIntelligence = () => {
           duration: 0.8,
           ease: "power2.inOut",
         },
-        4.4
+        5.4
       );
     }
     if (imageElements[4]) {
