@@ -74,43 +74,49 @@ const footerColumns = [
 export default function Footer() {
   return (
     <footer className="bg-white">
-      <div className="container mx-auto">
-        <div className="flex items-center justify-between py-[3.75rem]">
+      <div className="px-10 pt-[3.313rem] border-t border-[#EAEAEA]">
+        <div className="flex items-start">
           <Image src="/images/logo.svg" alt="KT AI" width={54} height={21} />
-          <button className="flex items-center gap-2 text-[15px] font-semibold leading-[1.3] tracking-[-0.02em]">
+          <div className="flex flex-col gap-4 ml-[14.688rem]">
+            <div className="flex items-start gap-[5.75rem] mb-[5rem]">
+              {footerColumns.map((column) => (
+                <FooterColumn key={column.title} {...column} />
+              ))}
+              <div className="flex items-center gap-0.5">
+                <Link href="#" className="text-lg font-semibold leading-[1.3]">
+                  Experience
+                </Link>
+                <Image src="/images/icons/arrow_up_right.svg" alt="" width={16} height={16} className="-mt-1" />
+              </div>
+            </div>
+          </div>
+          <button className="flex items-center gap-2 text-[15px] font-semibold leading-[1.3] tracking-[-0.02em] ml-auto">
             패밀리 사이트
-            <Image src="/images/icons/chevron_down.svg" alt="" width={24} height={24} />
+            <Image src="/images/icons/chevron_down.svg" alt="" width={17} height={17} />
           </button>
         </div>
-        <div className="flex justify-between pb-[5.625rem]">
-          {footerColumns.map((column) => (
-            <FooterColumn key={column.title} {...column} />
-          ))}
-          <div className="flex items-center gap-0.5">
-            <Link href="#" className="text-lg font-semibold leading-[1.3]">
-              Experience
-            </Link>
-            <Image src="/images/icons/arrow_up_right.svg" alt="" width={24} height={24} />
-          </div>
-        </div>
-        <div className="h-px bg-[#EAEAEA]" />
-        <div className="flex items-center justify-between py-8">
-          <div className="flex items-center gap-3">
-            <FooterLink href="#" className="text-[#333333] font-semibold">
-              개인정보처리방침
-            </FooterLink>
-            <div className="w-px h-3 bg-[#E6E6E6]" />
-            <FooterLink href="#" className="text-[#666666]">
-              이용약관
-            </FooterLink>
-            <div className="w-px h-3 bg-[#E6E6E6]" />
-            <FooterLink href="#" className="text-[#666666]">
-              제휴
-            </FooterLink>
-            <div className="w-px h-3 bg-[#E6E6E6]" />
-            <FooterLink href="#" className="text-[#666666]">
-              문의
-            </FooterLink>
+        <div className="flex items-start justify-between pb-[5.625rem] ml-[18.063rem]">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <FooterLink href="#" className="text-[#333333] font-semibold">
+                개인정보처리방침
+              </FooterLink>
+              <div className="w-px h-3 bg-[#E6E6E6]" />
+              <FooterLink href="#" className="text-[#666666]">
+                이용약관
+              </FooterLink>
+              <div className="w-px h-3 bg-[#E6E6E6]" />
+              <FooterLink href="#" className="text-[#666666]">
+                제휴
+              </FooterLink>
+              <div className="w-px h-3 bg-[#E6E6E6]" />
+              <FooterLink href="#" className="text-[#666666]">
+                문의
+              </FooterLink>
+            </div>
+            <div className="pb-8">
+              <p className="text-sm leading-[1.32] text-[#888888]">ⓒ KT Corp.</p>
+            </div>
           </div>
           <div className="flex items-center gap-3">
             {socialLinks.map((link) => (
@@ -124,9 +130,6 @@ export default function Footer() {
               </Link>
             ))}
           </div>
-        </div>
-        <div className="pb-8">
-          <p className="text-sm leading-[1.32] text-[#888888]">ⓒ KT Corp.</p>
         </div>
       </div>
     </footer>

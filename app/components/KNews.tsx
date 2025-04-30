@@ -18,7 +18,7 @@ interface NewsCardProps {
 const NewsCard = ({ image, title, description, date, isMain = false }: NewsCardProps) => {
   return (
     <div className={`${isMain ? "w-full" : "w-[400px]"}`}>
-      <div className={`${isMain ? "sticky top-0" : ""}`}>
+      <div className={`${isMain ? "sticky top-32" : ""}`}>
         <div className={`relative ${isMain ? "h-[600px] mb-10" : "h-[280px] mb-6"} rounded-2xl overflow-hidden`}>
           <Image src={image} alt={title} fill className="object-cover" />
           {isMain && (
@@ -36,7 +36,7 @@ const NewsCard = ({ image, title, description, date, isMain = false }: NewsCardP
             {title}
           </h3>
           <p
-            className={`${
+            className={`text-ellipsis overflow-hidden whitespace-nowrap ${
               isMain ? "text-lg leading-[1.58] text-[#333333]" : "text-base leading-[1.48] text-[#666666]"
             }`}
           >
@@ -88,7 +88,7 @@ export default function KNews() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-white py-[8.125rem]">
+    <section ref={sectionRef} className="relative bg-white py-[8.125rem] dark:bg-black transition-all duration-700">
       <div className="container mx-auto">
         <div ref={titleRef} className="flex items-center justify-between gap-4 mb-12">
           <h2 className="text-52 font-plus font-semibold leading-[1.12] tracking-[-0.01em]">Latest news</h2>

@@ -41,26 +41,63 @@ const features = [
 
 export default function KInspiration() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const Subtitle = section.querySelector("[data-title-animation]");
+    const Title = section.querySelector("[data-main-title-animation]");
+    const Description = section.querySelector("[data-description-animation]");
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top center",
-        end: "bottom center",
-        toggleActions: "play none none reverse",
+        start: "+=3100 top",
+        end: "bottom bottom",
+        toggleActions: "play none none none",
       },
     });
 
-    tl.from(titleRef.current, {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-    });
+    tl.fromTo(
+      Subtitle,
+      {
+        opacity: 0,
+        y: 30,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+      }
+    );
+
+    tl.fromTo(
+      Title,
+      {
+        opacity: 0,
+        y: 30,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+      }
+    );
+
+    tl.fromTo(
+      Description,
+      {
+        opacity: 0,
+        y: 30,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+      }
+    );
 
     featureRefs.current.forEach((feature, index) => {
       tl.from(
@@ -68,10 +105,10 @@ export default function KInspiration() {
         {
           opacity: 0,
           y: 50,
-          duration: 0.8,
-          delay: index * 0.2,
+          duration: 0.4,
+          delay: index * 0.1,
         },
-        "-=0.4"
+        "-=0.1"
       );
     });
 
@@ -84,15 +121,15 @@ export default function KInspiration() {
     <section ref={sectionRef} className="relative min-h-screen bg-gradient-to-b from-white to-[#E4E8E9] py-32">
       <div className="container flex justify-between max-w-[1700px] w-full mx-auto px-4">
         {/* Title Section */}
-        <div ref={titleRef} className="mb-24 flex-2/4">
+        <div className="mb-24 flex-2/4 sticky top-32 h-fit">
           <KAITitle title="Meet K" subtitle="Inspiration" direction="left" className="mb-20" />
-          <h2 className="text-[3.25rem] font-bold leading-[1.4] tracking-[-0.02em] mb-10">
+          <h2 className="text-[3.25rem] font-bold leading-[1.4] tracking-[-0.02em] mb-10" data-main-title-animation>
             KT는 &apos;진짜 한국형 AI&apos;,
             <br /> K-AI를 통해 우리 언어와 문화를
             <br /> 깊이 이해하는 인공지능의 새로운
             <br /> 시대를 열어갑니다.
           </h2>
-          <p className="text-lg font-medium leading-[1.86] text-[#333] max-w-[800px]">
+          <p className="text-lg font-medium leading-[1.86] text-[#333] max-w-[800px]" data-description-animation>
             K-AI는 KT가 만든 가장 한국적인 방식으로 설계된 인공지능
             <br /> 생태계입니다. 이곳은 KT의 기술, 철학, 그리고 한국형 AI의 실체를 직접 만나고
             <br /> 체험할 수 있는 K-AI의 중심 공간입니다.
