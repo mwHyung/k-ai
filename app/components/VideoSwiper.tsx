@@ -55,7 +55,7 @@ const VideoSwiper = () => {
         onSwiper={setSwiper}
         onSlideChange={handleSlideChange}
       >
-        {[1, 2, 3, 4, 5].map((_, index) => (
+        {[1, 2].map((_, index) => (
           <SwiperSlide key={index} className="w-full h-full">
             <div className="w-full h-full">
               <video
