@@ -46,7 +46,7 @@ export default function ModelServices() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "bottom top",
+        start: "+=250% top",
         end: "bottom bottom",
         markers: true,
         toggleActions: "play none none none",

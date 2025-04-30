@@ -25,7 +25,7 @@ const KIntelligence = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "bottom top",
+        start: "+=60% top",
         end: "bottom bottom",
         toggleActions: "play none none none", // Changed to only play once
       },
