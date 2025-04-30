@@ -30,7 +30,7 @@ const StatCard = ({ title, value, increase }: StatCardProps) => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: cardElement,
-        start: "+=2600 center",
+        start: "top bottom",
         end: "bottom center",
         toggleActions: "play none none none",
       },
@@ -103,7 +103,7 @@ export default function KAILab() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "+=3400 center",
+        start: "top top",
         end: "bottom center",
 
         toggleActions: "play none none none",

@@ -73,7 +73,7 @@ const footerColumns = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white">
+    <footer className="bg-white relative z-[100]">
       <div className="px-10 pt-[3.313rem] border-t border-[#EAEAEA]">
         <div className="flex items-start">
           <Image src="/images/logo.svg" alt="KT AI" width={54} height={21} />

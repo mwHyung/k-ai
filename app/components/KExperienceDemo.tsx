@@ -60,8 +60,8 @@ export default function KExperienceDemo() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "+=4000 bottom",
-        end: "3900 top",
+        start: "top top",
+        end: "bottom center",
         toggleActions: "play none none none",
 
         onEnter: () => {
@@ -275,7 +275,7 @@ export default function KExperienceDemo() {
           muted
           loop
           playsInline
-          className="w-full h-[calc(100vh-33.5rem)] object-cover object-bottom bottom-0 absolute"
+          className="w-full h-[33.5rem] object-cover object-bottom bottom-0 absolute"
         />
       </div>
       <div className="absolute left-0 top-0 bg-gradient-to-r from-black/100 via-black/60 to-transparent z-10 w-[29.5rem] h-full" />

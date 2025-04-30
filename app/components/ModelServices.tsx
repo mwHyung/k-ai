@@ -46,8 +46,8 @@ export default function ModelServices() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "+=1800 top",
-        end: "+=300",
+        start: "bottom top",
+        end: "bottom center",
         toggleActions: "play none none none",
       },
     });
@@ -123,15 +123,9 @@ export default function ModelServices() {
             About <br />
             <div className="relative">
               <div className="absolute inset-0 z-0 overflow-hidden pt-3">
-                <video
-                  className="w-full h-[calc(100%-0.7rem)] object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  src="/video/model_services_bg.mp4"
-                />
+                <video className="w-full h-full object-cover" autoPlay muted loop src="/video/model_services_bg.mp4" />
               </div>
-              <p className="relative z-10 mix-blend-color-dodge bg-white text-black">Model</p>
+              <p className="relative z-10 mix-blend-lighten bg-[#fafafa] text-black">Model</p>
             </div>
             <p className="text-[#B9B9C5]">& Agent</p>
             Services

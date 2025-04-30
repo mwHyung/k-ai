@@ -62,7 +62,7 @@ export default function KNews() {
         trigger: sectionRef.current,
         start: "top center",
         end: "bottom center",
-        toggleActions: "play none none reverse",
+        toggleActions: "play none none none",
       },
     });
 

@@ -25,46 +25,63 @@ export default function Home() {
 
   useEffect(() => {
     const sections = sectionsRef.current;
-    const main = mainRef.current;
     const container = containerRef.current;
-    if (!sections.length || !main || !container) return;
+    if (!sections.length || !container) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: "top top",
-        end: "+=300%",
-        scrub: 1,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-      },
+    // parallax scrolling이 필요한 섹션들만 선택
+    const parallaxSections = sections.slice(0, 3);
+
+    // 컨테이너의 높이를 parallax 섹션들의 높이 합으로 설정
+    gsap.set(container, {
+      height: `${parallaxSections.length * 100}vh`,
     });
 
-    sections.forEach((section, index) => {
-      if (!section || index === 0) return; // 첫 번째 섹션은 제외
+    // 각 parallax 섹션의 초기 스타일 설정
+    parallaxSections.forEach((section, index) => {
+      if (!section) return;
 
-      // 각 섹션의 초기 스타일 설정
       gsap.set(section, {
-        position: "absolute",
+        position: "fixed",
         width: "100%",
-        height: "100%",
+        height: "100vh",
         top: 0,
         left: 0,
+        yPercent: index === 0 ? 0 : 100,
         zIndex: 10 + index,
       });
 
-      // 스크롤에 따라 섹션이 아래에서 위로 올라오는 애니메이션
-      tl.fromTo(
-        section,
-        {
-          yPercent: 100,
+      // 각 섹션의 ScrollTrigger 생성
+      ScrollTrigger.create({
+        trigger: container,
+        start: `${index * 25}% top`,
+        end: `${(index + 1) * 25}% top`,
+        scrub: 0.5,
+        markers: true,
+        onEnter: () => {
+          gsap.to(section, {
+            yPercent: 0,
+            duration: 1,
+            ease: "power2.inOut",
+          });
         },
-        {
-          yPercent: 0,
-          ease: "power2.inOut",
-        }
-      );
+        onLeaveBack: () => {
+          gsap.to(section, {
+            yPercent: index === 0 ? 0 : 100,
+            duration: 1,
+            ease: "power2.inOut",
+          });
+        },
+        // onUpdate: (self) => {
+        //   const progress = self.progress;
+        //   if (index > 0) {
+        //     gsap.to(section, {
+        //       yPercent: -100 + progress * 100,
+        //       ease: "power2.inOut",
+        //       immediateRender: false,
+        //     });
+        //   }
+        // },
+      });
     });
 
     return () => {
@@ -83,14 +100,14 @@ export default function Home() {
       <Header />
       <main ref={mainRef} className="relative">
         <FloatingBanner />
-        <div ref={containerRef} className="relative flex flex-col">
-          <div ref={addToRefs} className="relative z-[10] h-full">
+        <div ref={containerRef} className="relative">
+          <div ref={addToRefs} className="relative z-[10] h-screen">
             <VideoSwiper />
           </div>
-          <div ref={addToRefs} className="relative z-[11] bg-white h-full">
+          <div ref={addToRefs} className="relative z-[11] h-screen bg-white">
             <KIntelligence />
           </div>
-          <div ref={addToRefs} className="relative z-[12] bg-white h-full">
+          <div ref={addToRefs} className="relative z-[12] h-screen bg-white">
             <ModelServices />
           </div>
         </div>

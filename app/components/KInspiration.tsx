@@ -54,8 +54,8 @@ export default function KInspiration() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "+=3100 top",
-        end: "bottom bottom",
+        start: "top top",
+        end: "bottom 20%",
         toggleActions: "play none none none",
       },
     });
