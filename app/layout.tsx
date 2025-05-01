@@ -33,6 +33,11 @@ const pretendard = localFont({
   ],
 });
 
+const suitVariable = localFont({
+  src: "../public/fonts/SUIT-Variable.ttf",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "KT AI",
   description: "KT AI",
@@ -41,7 +46,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${pretendard.className} ${plusJakartaSans.className}`}>{children}</body>
+      <body className={`${pretendard.className} ${plusJakartaSans.className} ${suitVariable.className}`}>
+        {children}
+      </body>
     </html>
   );
 }

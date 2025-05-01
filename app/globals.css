@@ -13,6 +13,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  @keyframes loopScroll {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+}
+
 /* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -162,6 +173,14 @@ body {
   font-display: swap;
 }
 
+@font-face {
+  font-family: "SUIT";
+  src: url("/fonts/SUIT-Variable.ttf") format("ttf");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   html {
     font-family: "Pretendard", system-ui, sans-serif;
@@ -175,4 +194,99 @@ body {
   .exp_swiper .swiper-slide-active {
     @apply ml-[31rem];
   }
+}
+
+/* Use Case Slider Styles */
+.usecase-swiper {
+  padding: 50px 0;
+  height: 637px;
+}
+
+.usecase-swiper .swiper-slide {
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.usecase-swiper .swiper-slide-prev::after,
+.usecase-swiper .swiper-slide-next::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.usecase-swiper .swiper-slide-active {
+  z-index: 2;
+}
+
+.usecase-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 3rem;
+}
+
+.usecase-swiper .swiper-pagination-bullet {
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  margin: 0 4px !important;
+  transition: all 0.3s ease;
+}
+
+.usecase-swiper .swiper-pagination-bullet-active {
+  background: #fff;
+  width: 40px;
+}
+
+/* Image Slider Styles */
+.image-slider {
+  width: 100%;
+  overflow: visible;
+  padding: 20px 0;
+}
+
+.image-slider .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+.image-slider .swiper-slide {
+  transition: transform 0.3s ease;
+}
+
+.image-slider .swiper-slide:hover {
+  transform: translateY(-10px);
+}
+
+/* Slide Content Animation */
+.image-slider .slide-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.image-slider .swiper-slide:hover .slide-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Progress Bar Animation */
+@keyframes progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Navigation Button Hover Effects */
+.image-slider .nav-button {
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.image-slider:hover .nav-button {
+  opacity: 1;
 }

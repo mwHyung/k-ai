@@ -48,7 +48,6 @@ export default function ModelServices() {
         trigger: section,
         start: "+=250% top",
         end: "bottom bottom",
-        markers: true,
         toggleActions: "play none none none",
       },
     });
