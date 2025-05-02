@@ -18,16 +18,21 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Add fade-down after 4 seconds with smooth animation
-    const timer = setTimeout(() => {
+    let timer: NodeJS.Timeout;
+    if (!isSubPage) {
+      // Add fade-down after 4 seconds with smooth animation
+      timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 4000);
+    } else {
       setIsVisible(true);
-    }, 4000);
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
     };
-  }, []);
+  }, [isSubPage]);
 
   return (
     <header

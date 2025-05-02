@@ -85,7 +85,7 @@ const VideoSwiper = () => {
                     transition={{ duration: 4, ease: "easeOut" }}
                     className="text-white text-xl font-semibold leading-[1.6] tracking-[-0.5px] transition-colors duration-1000"
                   >
-                    'K'를 움직이는 진짜 AI, 지금 KT가 시작합니다
+                    &apos;K&apos;를 움직이는 진짜 AI, 지금 KT가 시작합니다
                   </motion.p>
                   <motion.p
                     key={`${slideIndex}-0-2`}
@@ -97,7 +97,7 @@ const VideoSwiper = () => {
                     transition={{ delay: 1, duration: 3, ease: "easeOut" }}
                     className="text-white text-82 font-semibold leading-[1.18] tracking-[-4px] text-center transition-colors duration-1000"
                   >
-                    The True AI That Drives 'K'
+                    The True AI That Drives &apos;K&apos;
                   </motion.p>
                   <motion.p
                     key={`${slideIndex}-0-3`}
