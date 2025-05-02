@@ -20,6 +20,7 @@ const config: Config = {
         "58": "3.625rem",
         "64": "4rem",
         "80": "5rem",
+        "82": "5.125rem",
         "90": "5.625rem",
       },
       fontFamily: {

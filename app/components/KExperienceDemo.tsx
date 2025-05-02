@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import KAITitle from "./kAITitle";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,16 +15,10 @@ interface ChatBubbleProps {
 
 const ChatBubble = ({ text }: ChatBubbleProps) => {
   return (
-    <div
-      className="group flex shrink-0 rounded-lg hover:p-[3px] transition-all duration-500 hover:bg-[linear-gradient(90deg,#FF0347_0%,#11299A_20.67%,#0854FF_33.17%,#FDFFFF_42.08%,#C9FDFF_49.98%,#0847F1_71.97%,#ED3ACE_85.14%,#FF0347_100%)]"
-      data-chat-bubble-animation
-    >
-      <div
-        className="bg-[#8B8B8B]/60 backdrop-blur-[12px] rounded-lg group-hover:bg-black"
-        data-chat-bubble-animation-text
-      >
+    <div className="flex shrink-0 rounded-lg" data-chat-bubble-animation>
+      <div className="bg-[#8B8B8B]/60 backdrop-blur-[12px] rounded-lg" data-chat-bubble-animation-text>
         <p
-          className="text-base font-medium leading-[1.86] tracking-[-0.01em] text-white whitespace-pre-line px-8 py-[1.375rem] group-hover:text-26 transition-all duration-500"
+          className="text-base font-medium leading-[1.86] tracking-[-0.01em] text-white whitespace-pre-line px-8 py-[1.375rem] transition-all duration-500"
           data-chat-bubble-animation-text-content
         >
           {text}
@@ -60,7 +55,7 @@ export default function KExperienceDemo() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top top",
+        start: "40% center",
         end: "bottom center",
         toggleActions: "play none none none",
 
@@ -275,7 +270,7 @@ export default function KExperienceDemo() {
           muted
           loop
           playsInline
-          className="w-full h-[33.5rem] object-cover object-bottom bottom-0 absolute"
+          className="w-full h-[28vw] object-cover object-bottom bottom-0 absolute"
         />
       </div>
       <div className="absolute left-0 top-0 bg-gradient-to-r from-black/100 via-black/60 to-transparent z-10 w-[29.5rem] h-full" />
@@ -307,11 +302,13 @@ export default function KExperienceDemo() {
           </div>
         </div>
 
-        <div className="flex justify-center">
-          <button className="inline-flex items-center gap-2 pl-10 pr-8 py-6 border border-[#AAAAAA] rounded-full text-white hover:bg-white/10 transition-colors">
-            <span className="text-lg font-semibold leading-[1.3] tracking-[-0.01em]">K-AI 체험하러 가기</span>
-            <Image src="/images/icons/arrow_right_white.svg" alt="arrow-right" width={20} height={20} />
-          </button>
+        <div className="flex justify-center relative z-[51]">
+          <Link href="/onnuri">
+            <button className="inline-flex items-center gap-2 pl-10 pr-8 py-6 border border-[#AAAAAA] rounded-full text-white hover:bg-white/10 transition-colors">
+              <span className="text-lg font-semibold leading-[1.3] tracking-[-0.01em]">K-AI 체험하러 가기</span>
+              <Image src="/images/icons/arrow_right_white.svg" alt="arrow-right" width={20} height={20} />
+            </button>
+          </Link>
         </div>
       </div>
 

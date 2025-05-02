@@ -54,7 +54,7 @@ export default function KInspiration() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top top",
+        start: "top center",
         end: "bottom 20%",
         toggleActions: "play none none none",
       },
@@ -69,44 +69,43 @@ export default function KInspiration() {
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.5,
       }
-    );
-
-    tl.fromTo(
-      Title,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-      }
-    );
-
-    tl.fromTo(
-      Description,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-      }
-    );
+    )
+      .fromTo(
+        Title,
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+        }
+      )
+      .fromTo(
+        Description,
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+        }
+      );
 
     featureRefs.current.forEach((feature, index) => {
       tl.from(
         feature,
         {
           opacity: 0,
-          y: 50,
+          y: 200,
           duration: 0.4,
           delay: index * 0.1,
+          ease: "power2.out",
         },
         "-=0.1"
       );

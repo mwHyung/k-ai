@@ -18,7 +18,7 @@ const FloatingBanner = () => {
       const viewportHeight = window.innerHeight;
       const scrollPercentage = (scrollPosition / (documentHeight - viewportHeight)) * 100;
 
-      if (scrollPercentage > 90) {
+      if (scrollPercentage > 1) {
         setBottom(true);
       } else {
         setBottom(false);
@@ -33,9 +33,9 @@ const FloatingBanner = () => {
 
   return (
     <div
-      className={`left-1/2 -translate-x-1/2 z-50 rounded-full ${isVisible ? "w-[296px]" : "w-[240px]"} ${
-        bottom ? "sticky bottom-[unset] top-[90vh]" : "fixed bottom-[5.813rem] "
-      }`}
+      className={`left-1/2 -translate-x-1/2 z-50 rounded-full transition-all duration-700 ${
+        isVisible ? "w-[296px]" : "w-[240px]"
+      } ${bottom ? "sticky top-[90vh] mb-14" : "fixed bottom-[5.813rem] "}`}
       role="button"
       tabIndex={0}
       aria-label="Ask K-ON"

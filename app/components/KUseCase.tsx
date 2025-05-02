@@ -32,7 +32,7 @@ interface CaseCardProps {
 const CaseCard = ({ image, title, date, tags, gradient }: CaseCardProps) => {
   return (
     <div className="relative w-full h-[34rem] rounded-2xl overflow-hidden group">
-      <Image src={image} alt={title} fill className="object-cover" />
+      <Image src={image} alt={title} width={420} height={548} className="object-cover" />
       {gradient && <div className={`absolute inset-x-0 bottom-0 h-full ${gradient}`} />}
       <div className="absolute inset-x-0 bottom-0 pl-8 pr-[2.813rem] pb-11">
         <p className="text-sm font-light leading-[1.32] text-white mb-6">{date}</p>
@@ -133,8 +133,8 @@ export default function KUseCase() {
   ];
 
   return (
-    <section ref={sectionRef} className="relative bg-black py-32">
-      <div className="mx-auto">
+    <section ref={sectionRef} className="relative bg-black pt-60 pb-44 overflow-hidden">
+      <div className="mx-auto w-[1920px]">
         <div ref={cardsRef} className="relative">
           <Swiper
             modules={[Autoplay, Pagination]}

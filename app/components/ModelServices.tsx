@@ -7,6 +7,10 @@ import KAITitle from "./kAITitle";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface ModelServicesProps {
+  sectionIndex: number;
+}
+
 const models = [
   {
     name: "온누리",
@@ -31,11 +35,15 @@ const models = [
   },
 ];
 
-export default function ModelServices() {
+export default function ModelServices({ sectionIndex }: ModelServicesProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const subTitleRef = useRef<HTMLDivElement>(null);
   const mainTitleRef = useRef<HTMLDivElement>(null);
   const modelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const modelNameRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const modelDotRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const modelTitleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const modelDescRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -46,7 +54,9 @@ export default function ModelServices() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "+=250% top",
+        start: () => {
+          return sectionIndex === 2 ? "-202% 200%" : "top top";
+        },
         end: "bottom bottom",
         toggleActions: "play none none none",
       },
@@ -85,29 +95,59 @@ export default function ModelServices() {
       "+=0.1"
     );
 
-    // 3. Models animation - one by one
-    modelRefs.current.forEach((model) => {
-      gsap.set(model, {
-        opacity: 0,
-        y: 50,
-      });
+    // 3. Models animation - each element separately
+    models.forEach((_, index) => {
+      // Set initial states
+      gsap.set(
+        [
+          modelNameRefs.current[index],
+          modelDotRefs.current[index],
+          modelTitleRefs.current[index],
+          modelDescRefs.current[index],
+        ],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
 
+      // Animate each element with slight delays
       tl.to(
-        model,
+        modelNameRefs.current[index],
         {
           opacity: 1,
           y: 0,
-          duration: 0.4,
+          duration: 0.5,
           ease: "power2.out",
         },
-        "+=0.1"
-      );
+        `>-0.1`
+      )
+        .to(
+          modelDotRefs.current[index],
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          ">-0.2"
+        )
+        .to(
+          modelTitleRefs.current[index],
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          ">-0.2"
+        );
     });
 
     return () => {
       tl.kill();
     };
-  }, []);
+  }, [sectionIndex]);
 
   return (
     <section ref={sectionRef} className="relative h-screen bg-[#fafafa] py-32 flex items-center">
@@ -145,7 +185,12 @@ export default function ModelServices() {
               <div
                 className={`flex gap-4 justify-end ${index === 1 ? "mr-[1.563rem]" : index === 2 ? "mr-[2rem]" : ""}`}
               >
-                <div className="flex flex-col gap-[1.625rem]">
+                <div
+                  ref={(el) => {
+                    modelNameRefs.current[index] = el;
+                  }}
+                  className="flex flex-col gap-[1.625rem]"
+                >
                   <h3 className="text-[6rem] text-right font-semibold leading-24 tracking-[-0.075rem] pl-11">
                     {model.name}
                   </h3>
@@ -153,8 +198,18 @@ export default function ModelServices() {
                     <video className="w-full h-full object-cover" autoPlay muted loop src={model.src} />
                   </div>
                 </div>
-                <p className="w-2 h-2 rounded-full bg-black mx-16 mt-2" />
-                <div className="flex flex-col gap-3.5">
+                <p
+                  ref={(el) => {
+                    modelDotRefs.current[index] = el;
+                  }}
+                  className="w-2 h-2 rounded-full bg-black mx-16 mt-2"
+                />
+                <div
+                  ref={(el) => {
+                    modelTitleRefs.current[index] = el;
+                  }}
+                  className="flex flex-col gap-3.5"
+                >
                   <p className="text-lg font-medium text-[#202020] leading-[1.575rem] whitespace-pre-line">
                     {model.title}
                   </p>

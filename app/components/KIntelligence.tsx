@@ -8,7 +8,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const KIntelligence = () => {
+interface KIntelligenceProps {
+  sectionIndex: number;
+}
+
+const KIntelligence = ({ sectionIndex }: KIntelligenceProps) => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -25,9 +29,11 @@ const KIntelligence = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "+=60% top",
+        start: () => {
+          return sectionIndex === 1 ? "-102% 100%" : "top top"; // Only trigger when section index is 1
+        },
         end: "bottom bottom",
-        toggleActions: "play none none none", // Changed to only play once
+        toggleActions: "play none none none",
       },
     });
 
@@ -38,7 +44,7 @@ const KIntelligence = () => {
         opacity: 1,
         y: 0,
         duration: 0.8,
-        delay: 1,
+        delay: 0.2,
         ease: "power3.out",
       },
       0
@@ -136,7 +142,7 @@ const KIntelligence = () => {
           duration: 0.2,
           ease: "power2.out",
         },
-        4
+        2.8
       ).to(
         progressElement,
         {
@@ -144,7 +150,7 @@ const KIntelligence = () => {
           duration: 0.8,
           ease: "power2.inOut",
         },
-        4
+        2.8
       );
     }
 
@@ -163,7 +169,7 @@ const KIntelligence = () => {
             duration: 0.2,
             ease: "power2.out",
           },
-          4.8
+          3.2
         ).to(
           progressElement,
           {
@@ -171,7 +177,7 @@ const KIntelligence = () => {
             duration: 0.8,
             ease: "power2.inOut",
           },
-          4.8
+          3.2
         );
       }
     }
@@ -195,7 +201,8 @@ const KIntelligence = () => {
             ease: "power1.inOut",
           });
         },
-      }
+      },
+      "-=0.2"
     );
 
     // Fourth and fifth images
@@ -212,7 +219,7 @@ const KIntelligence = () => {
           duration: 0.2,
           ease: "power2.out",
         },
-        5.2
+        3.6
       ).to(
         progressElement,
         {
@@ -220,7 +227,7 @@ const KIntelligence = () => {
           duration: 0.8,
           ease: "power2.inOut",
         },
-        5.4
+        3.6
       );
     }
     if (imageElements[4]) {
@@ -254,7 +261,7 @@ const KIntelligence = () => {
     return () => {
       tl.kill();
     };
-  }, []);
+  }, [sectionIndex]);
 
   const items = [
     { number: "01", title: "DNA" },
@@ -273,7 +280,11 @@ const KIntelligence = () => {
           {/* Circular Images */}
           <div className="absolute -top-3 left-1/2 -translate-x-5/7 opacity-0" data-image-animation>
             <div className="w-full h-full relative">
-              <div className="absolute inset-0 bg-white" style={{ width: "100%" }} data-image-progress></div>
+              <div
+                className="absolute inset-0 bg-white h-[calc(100%+0.5rem)] -mt-0.5"
+                style={{ width: "100%" }}
+                data-image-progress
+              ></div>
               <div className="w-[14.125rem] h-[7rem] rounded-[9999px] overflow-hidden">
                 <video src="/video/intelligence_1.mp4" autoPlay muted loop />
               </div>
@@ -284,7 +295,11 @@ const KIntelligence = () => {
             data-image-animation
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-white" style={{ width: "100%" }} data-image-progress></div>
+              <div
+                className="absolute inset-0 bg-white h-[calc(100%+0.5rem)] -mt-0.5"
+                style={{ width: "100%" }}
+                data-image-progress
+              ></div>
               <Image
                 src="/images/k-intelligence/image-2.png"
                 alt="Circular Image 2"
@@ -296,7 +311,11 @@ const KIntelligence = () => {
           </div>
           <div className="absolute top-1/2 right-[calc(50%-19rem)] -translate-y-1/2 opacity-0" data-image-animation>
             <div className="relative">
-              <div className="absolute inset-0 bg-white" style={{ width: "100%" }} data-image-progress></div>
+              <div
+                className="absolute inset-0 bg-white h-[calc(100%+0.5rem)] -mt-0.5"
+                style={{ width: "100%" }}
+                data-image-progress
+              ></div>
               <div className="w-[14.125rem] h-[7rem] rounded-[9999px] overflow-hidden">
                 <video src="/video/intelligence_2.mp4" autoPlay muted loop />
               </div>
@@ -304,7 +323,11 @@ const KIntelligence = () => {
           </div>
           <div className="absolute bottom-0 right-[calc(50%-3.5rem)] translate-y-1 opacity-0" data-image-animation>
             <div className="relative">
-              <div className="absolute inset-0 bg-white" style={{ width: "100%" }} data-image-progress></div>
+              <div
+                className="absolute inset-0 bg-white h-[calc(100%+0.5rem)] -mt-0.5"
+                style={{ width: "100%" }}
+                data-image-progress
+              ></div>
               <div className="w-[14.125rem] h-[7rem] rounded-[9999px] overflow-hidden">
                 <video src="/video/intelligence_3.mp4" autoPlay muted loop />
               </div>
@@ -312,7 +335,11 @@ const KIntelligence = () => {
           </div>
           <div className="absolute bottom-0 right-0 translate-x-68 translate-y-2 opacity-0" data-image-animation>
             <div className="relative">
-              <div className="absolute inset-0 bg-white" style={{ width: "100%" }} data-image-progress></div>
+              <div
+                className="absolute inset-0 bg-white h-[calc(100%+0.5rem)] -mt-0.5"
+                style={{ width: "100%" }}
+                data-image-progress
+              ></div>
               <Image
                 src="/images/k-intelligence/image-5.svg"
                 alt="Circular Image 5"
@@ -382,7 +409,7 @@ const KIntelligence = () => {
         />
 
         {/* CTA Button */}
-        <div className="flex justify-center" data-cta-animation>
+        <div className="flex justify-center mb-[3vw]" data-cta-animation>
           <button className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-full font-semibold text-lg hover:bg-gray-900 transition-colors">
             K intelligence 더 알아보기
             <svg

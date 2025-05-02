@@ -189,11 +189,18 @@ body {
 
 @layer components {
   .exp_swiper {
-    @apply transition-transform duration-700;
+    @apply transition-transform duration-700 !overflow-visible;
   }
   .exp_swiper .swiper-slide-active {
     @apply ml-[31rem];
   }
+  .exp_swiper .swiper-slide {
+    @apply w-[420px];
+  }
+}
+
+.exp_swiper .swiper-slide {
+  width: 420px !important;
 }
 
 /* Use Case Slider Styles */
@@ -279,14 +286,4 @@ body {
   to {
     transform: scaleX(0);
   }
-}
-
-/* Navigation Button Hover Effects */
-.image-slider .nav-button {
-  opacity: 0;
-  transition: opacity 0.3s ease, background-color 0.3s ease;
-}
-
-.image-slider:hover .nav-button {
-  opacity: 1;
 }
