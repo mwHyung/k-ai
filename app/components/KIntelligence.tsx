@@ -32,7 +32,7 @@ const KIntelligence = ({ sectionIndex }: KIntelligenceProps) => {
         start: () => {
           return sectionIndex === 1 ? "-102% 100%" : "top top"; // Only trigger when section index is 1
         },
-        end: "bottom bottom",
+        end: "top top",
         toggleActions: "play none none none",
       },
     });
@@ -182,29 +182,6 @@ const KIntelligence = ({ sectionIndex }: KIntelligenceProps) => {
       }
     }
 
-    // Section content floating animation
-    tl.fromTo(
-      section,
-      {
-        y: 0,
-        duration: 0.8,
-        ease: "power1.inOut",
-      },
-      {
-        y: -15,
-        duration: 0.8,
-        ease: "power1.inOut",
-        onComplete: () => {
-          gsap.to(section, {
-            y: 0,
-            duration: 0.8,
-            ease: "power1.inOut",
-          });
-        },
-      },
-      "-=0.2"
-    );
-
     // Fourth and fifth images
     if (imageElements[3]) {
       const imageElement = imageElements[3] as HTMLElement;
@@ -236,15 +213,23 @@ const KIntelligence = ({ sectionIndex }: KIntelligenceProps) => {
 
       gsap.set(imageElement, { opacity: 0 });
 
-      tl.to(imageElement, {
-        opacity: 1,
-        duration: 0.2,
-        ease: "power2.out",
-      }).to(progressElement, {
-        xPercent: 100,
-        duration: 0.8,
-        ease: "power2.inOut",
-      });
+      tl.to(
+        imageElement,
+        {
+          opacity: 1,
+          duration: 0.2,
+          ease: "power2.out",
+        },
+        4
+      ).to(
+        progressElement,
+        {
+          xPercent: 100,
+          duration: 0.8,
+          ease: "power2.inOut",
+        },
+        4
+      );
     }
 
     // CTA animation

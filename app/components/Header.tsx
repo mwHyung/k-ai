@@ -2,43 +2,72 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
   const isSubPage = pathname?.startsWith("/onnuri");
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      const currentScrollY = window.scrollY;
+
+      if (isSubPage) {
+        // 서브 페이지에서의 스크롤 방향에 따른 헤더 표시/숨김
+        if (currentScrollY > lastScrollY.current) {
+          // 아래로 스크롤
+          setIsHeaderVisible(false);
+        } else {
+          // 위로 스크롤
+          setIsHeaderVisible(true);
+        }
+        lastScrollY.current = currentScrollY;
+      } else {
+        // Add fade-down after 4 seconds with smooth animation
+        const timer = setTimeout(() => {
+          setIsVisible(true);
+        }, 4000);
+        return () => clearTimeout(timer);
+      }
+
+      setIsScrolled(currentScrollY > 0);
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    let timer: NodeJS.Timeout;
     if (!isSubPage) {
-      // Add fade-down after 4 seconds with smooth animation
-      timer = setTimeout(() => {
+      // Only set timer for main page
+      const timer = setTimeout(() => {
         setIsVisible(true);
       }, 4000);
-    } else {
-      setIsVisible(true);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        clearTimeout(timer);
+      };
     }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (timer) clearTimeout(timer);
     };
   }, [isSubPage]);
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 py-[0.813rem] transition-all duration-700 ease-in-out
+        // 메인 스크롤 시 배경 투명도 조절
       ${isScrolled && !isSubPage ? "bg-white/75 backdrop-blur-[50px] dark:bg-black/75" : "bg-transparent"}
-      ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"}`}
+      // 서브 페이지 스크롤 시 배경 색상 조절 
+      ${isSubPage && isScrolled ? "!bg-black" : ""}
+      // 메인 페이지에서 헤더 표시/숨김
+      ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"}
+      // 서브 페이지에서 헤더 표시/숨김
+      ${isSubPage && !isHeaderVisible ? "!-translate-y-full" : "!translate-y-0"}
+      ${isSubPage ? "opacity-100" : "opacity-0"}`}
     >
       <div className="container max-w-[1920px] mx-auto px-4 flex items-center justify-between">
         {/* Logo */}

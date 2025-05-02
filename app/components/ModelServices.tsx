@@ -107,21 +107,17 @@ export default function ModelServices({ sectionIndex }: ModelServicesProps) {
         ],
         {
           opacity: 0,
-          y: 30,
+          y: 100,
         }
       );
 
       // Animate each element with slight delays
-      tl.to(
-        modelNameRefs.current[index],
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power2.out",
-        },
-        `>-0.1`
-      )
+      tl.to(modelNameRefs.current[index], {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "power2.out",
+      })
         .to(
           modelDotRefs.current[index],
           {
@@ -130,7 +126,7 @@ export default function ModelServices({ sectionIndex }: ModelServicesProps) {
             duration: 0.5,
             ease: "power2.out",
           },
-          ">-0.2"
+          `-=0.45`
         )
         .to(
           modelTitleRefs.current[index],
@@ -140,7 +136,7 @@ export default function ModelServices({ sectionIndex }: ModelServicesProps) {
             duration: 0.5,
             ease: "power2.out",
           },
-          ">-0.2"
+          `-=0.45`
         );
     });
 

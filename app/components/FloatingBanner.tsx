@@ -14,11 +14,14 @@ const FloatingBanner = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      const viewportHeight = window.innerHeight;
-      const scrollPercentage = (scrollPosition / (documentHeight - viewportHeight)) * 100;
+      const footerHeight = 467; // 푸터의 대략적인 높이
+      const scrollBottom = scrollPosition + windowHeight;
+      const distanceFromBottom = documentHeight - scrollBottom;
 
-      if (scrollPercentage > 1) {
+      // 푸터와의 거리에 따라 위치 조정
+      if (distanceFromBottom < footerHeight) {
         setBottom(true);
       } else {
         setBottom(false);
@@ -33,16 +36,16 @@ const FloatingBanner = () => {
 
   return (
     <div
-      className={`left-1/2 -translate-x-1/2 z-50 rounded-full transition-all duration-700 ${
+      className={`left-1/2 -translate-x-1/2 z-50 rounded-full transition-all duration-300 ${
         isVisible ? "w-[296px]" : "w-[240px]"
-      } ${bottom ? "sticky top-[90vh] mb-14" : "fixed bottom-[5.813rem] "}`}
+      } ${bottom ? "absolute bottom-14" : "fixed bottom-[5.813rem]"}`}
       role="button"
       tabIndex={0}
       aria-label="Ask K-ON"
     >
       <div className="border-gradient-primary transform transition-all duration-500">
         <div
-          className={`flex items-center justify-between gap-2 rounded-full m-0.5 pl-6 pr-2 py-[2px] bg-white cursor-pointer border-4 border-transparent transition-all duration-300 `}
+          className={`flex items-center justify-between gap-2 rounded-full m-0.5 pl-6 pr-2 py-[2px] bg-white cursor-pointer border-4 border-transparent transition-all duration-300`}
           style={{
             boxShadow: "0px 8px 24px 0px rgba(0, 0, 0, 0.12)",
           }}

@@ -82,7 +82,8 @@ export default function KInspiration() {
           opacity: 1,
           y: 0,
           duration: 0.5,
-        }
+        },
+        "-=0.2"
       )
       .fromTo(
         Description,
@@ -94,20 +95,20 @@ export default function KInspiration() {
           opacity: 1,
           y: 0,
           duration: 0.5,
-        }
+        },
+        "-=0.2"
       );
 
-    featureRefs.current.forEach((feature, index) => {
+    featureRefs.current.forEach((feature) => {
       tl.from(
         feature,
         {
           opacity: 0,
           y: 200,
-          duration: 0.4,
-          delay: index * 0.1,
-          ease: "power2.out",
+          duration: 1,
+          ease: "power3.out",
         },
-        "-=0.1"
+        "-=0.9"
       );
     });
 

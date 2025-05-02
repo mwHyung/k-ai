@@ -82,7 +82,7 @@ const VideoSwiper = () => {
                       opacity: 1,
                       transitionEnd: { color: "black" },
                     }}
-                    transition={{ duration: 4, ease: "easeOut" }}
+                    transition={{ duration: 4.5, ease: "easeOut" }}
                     className="text-white text-xl font-semibold leading-[1.6] tracking-[-0.5px] transition-colors duration-1000"
                   >
                     &apos;K&apos;를 움직이는 진짜 AI, 지금 KT가 시작합니다
@@ -94,8 +94,8 @@ const VideoSwiper = () => {
                       opacity: 1,
                       transitionEnd: { color: "black" },
                     }}
-                    transition={{ delay: 1, duration: 3, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-4px] text-center transition-colors duration-1000"
+                    transition={{ delay: 1, duration: 3.5, ease: "easeOut" }}
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
                   >
                     The True AI That Drives &apos;K&apos;
                   </motion.p>
@@ -106,8 +106,8 @@ const VideoSwiper = () => {
                       opacity: 1,
                       transitionEnd: { color: "black" },
                     }}
-                    transition={{ delay: 2, duration: 2, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-4px] text-center transition-colors duration-1000"
+                    transition={{ delay: 2, duration: 2.5, ease: "easeOut" }}
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
                   >
                     KT Is Leading The Way
                   </motion.p>
@@ -132,9 +132,9 @@ const VideoSwiper = () => {
                       opacity: 1,
                     }}
                     transition={{ delay: 1, duration: 2, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-4px] text-center transition-colors duration-1000"
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
                   >
-                    True AI Tailored for Korea,
+                    True AI Tailored For Korea,
                   </motion.p>
                   <motion.p
                     key={`${slideIndex}-1-3`}
@@ -143,9 +143,9 @@ const VideoSwiper = () => {
                       opacity: 1,
                     }}
                     transition={{ delay: 2, duration: 2, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-4px] text-center transition-colors duration-1000"
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
                   >
-                    Powered by Onnuri
+                    Powered By Onnuri
                   </motion.p>
                 </div>
               )}

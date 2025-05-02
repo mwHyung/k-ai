@@ -78,9 +78,9 @@ export default function OnnuriPage() {
 
   // Add section refs
   const overviewRef = useRef<HTMLElement>(null);
-  const foundationRef = useRef<HTMLElement>(null);
-  const performanceRef = useRef<HTMLElement>(null);
-  const usecaseRef = useRef<HTMLElement>(null);
+  const foundationRef = useRef<HTMLDivElement>(null);
+  const performanceRef = useRef<HTMLDivElement>(null);
+  const usecaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Intersection Observer 설정
@@ -184,7 +184,7 @@ export default function OnnuriPage() {
     const targetRef = refs[index];
 
     if (targetRef?.current) {
-      const yOffset = -120; // Offset to account for sticky header
+      const yOffset = -220; // Offset to account for sticky header
       const y = targetRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
       window.scrollTo({
@@ -201,7 +201,7 @@ export default function OnnuriPage() {
   return (
     <div className="bg-black text-white">
       <Header />
-      <main>
+      <main className="relative">
         <FloatingBanner />
         {/* Hero Section */}
         <section className="relative w-full h-screen mx-auto">
@@ -313,7 +313,7 @@ export default function OnnuriPage() {
                     <div className={`flex items-start pl-[2.625rem] pt-5 pb-[54px] pr-24`} key={index}>
                       <div className="flex flex-col items-start">
                         <Image
-                          src={`/images/icons/sub_list0${index === 0 ? 1 : 4}.png`}
+                          src={`/images/icons/sub_list0${index === 0 ? 1 : 4}.svg`}
                           alt="한국어 인공 지능대화"
                           width={80}
                           height={80}
@@ -340,7 +340,7 @@ export default function OnnuriPage() {
                     <div className={`min-w-[360px] flex items-start pl-[2.625rem] pt-5 pb-[54px] pr-28`} key={index}>
                       <div className="flex flex-col items-start">
                         <Image
-                          src={`/images/icons/sub_list0${index === 0 ? 2 : 5}.png`}
+                          src={`/images/icons/sub_list0${index === 0 ? 2 : 5}.svg`}
                           alt="한국어 인공 지능대화"
                           width={80}
                           height={80}
@@ -367,7 +367,7 @@ export default function OnnuriPage() {
                     <div className={`flex items-start pl-[2.625rem] pt-5 pb-[54px]`} key={index}>
                       <div className="flex flex-col items-start">
                         <Image
-                          src={`/images/icons/sub_list0${index === 0 ? 3 : 6}.png`}
+                          src={`/images/icons/sub_list0${index === 0 ? 3 : 6}.svg`}
                           alt="한국어 인공 지능대화"
                           width={80}
                           height={80}
@@ -393,14 +393,14 @@ export default function OnnuriPage() {
           </motion.div>
         </section>
 
-        <section ref={foundationRef} className="w-full mx-auto pt-[160px] pb-[120px] relative">
+        <section className="w-full mx-auto pt-[160px] pb-[120px] relative">
           <div className="absolute top-0 left-0 w-full h-[354px] mt-[160px]">
             {/* <video src="/video/k_inspiration_video.mp4" autoPlay muted loop className="w-full h-full object-cover">
               <source src="/video/k_inspiration_video.mp4" type="video/mp4" />
             </video> */}
             <Image src="/images/sub/sub_bg.png" alt="Framework" width={1920} height={354} className="w-full h-full" />
           </div>
-          <div className="container mx-auto pt-96">
+          <div ref={foundationRef} className="container mx-auto pt-96">
             <div className="flex flex-col items-center">
               <motion.div
                 className="text-26 font-medium leading-[1.3] text-white/80 border border-white/30 py-[0.938rem] px-8 rounded-full mb-[2.125rem]"
@@ -433,95 +433,134 @@ export default function OnnuriPage() {
                 어떻게 설계되었는지, 어떻게 구현되었는지, 그리고 왜 믿을 수 있는지를 이곳에서 확인하세요.
               </motion.p>
               <div className="grid grid-cols-3 gap-[12.813rem]">
-                <motion.div
-                  className="flex flex-col items-start"
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                >
-                  <div className="flex items-start gap-1.5 mb-[6.375rem]">
+                <div className="flex flex-col items-start">
+                  <motion.div
+                    className="flex items-start gap-1.5 mb-[6.375rem]"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
                     <span className="text-sm font-normal leading-[1.32]">01</span>
                     <h3 className="text-42 font-semibold leading-[1.4] relative">
                       Framework
                       <p className="text-xl leading-[1.8]">한국어에 최적화된 아키텍처</p>
                     </h3>
-                  </div>
-                  <Image src="/images/sub/sub_con01.png" alt="Framework" width={307} height={307} className="mb-24" />
-                  <p className="text-lg text-white leading-[1.8]">
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 1 }}
+                  >
+                    <Image src="/images/sub/sub_con01.png" alt="Framework" width={307} height={307} className="mb-24" />
+                  </motion.div>
+                  <motion.p
+                    className="text-lg text-white leading-[1.8]"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 1.4 }}
+                  >
                     한글 형태소 분석에 특화된 토크나이저
                     <br />
                     한국 문화 데이터 3조 토큰 규모의 프리트레이닝
                     <br />
                     전문가 피드백 기반 RLHF 적용
-                  </p>
-                </motion.div>
-                <motion.div
-                  className="flex flex-col items-start"
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                >
-                  <div className="flex items-start gap-1.5 mb-[5.625rem]">
+                  </motion.p>
+                </div>
+                <div className="flex flex-col items-start">
+                  <motion.div
+                    className="flex items-start gap-1.5 mb-[5.625rem]"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 1.8 }}
+                  >
                     <span className="text-sm font-normal leading-[1.32]">02</span>
                     <h3 className="text-42 font-semibold leading-[1.4] relative">
                       Publication
                       <p className="text-xl leading-[1.8]">세계가 주목한 연구 성과</p>
                     </h3>
-                  </div>
-                  <Image
-                    src="/images/sub/sub_con02.png"
-                    alt="Framework"
-                    width={268}
-                    height={276}
-                    className="mb-[5.75rem] ml-10"
-                  />
-                  <p className="text-lg text-white leading-[1.8]">
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 2.2 }}
+                  >
+                    <Image
+                      src="/images/sub/sub_con02.png"
+                      alt="Framework"
+                      width={268}
+                      height={276}
+                      className="mb-[5.75rem] ml-10"
+                    />
+                  </motion.div>
+                  <motion.p
+                    className="text-lg text-white leading-[1.8]"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 2.6 }}
+                  >
                     한국어 특화 토크나이징 알고리즘 개발
                     <br />
                     문화적 맥락 이해를 위한 새로운 학습 방법론 제시
                     <br />
                     언어 모델의 문화적 편향 측정 및 완화 기법
-                  </p>
-                </motion.div>
-                <motion.div
-                  className="flex flex-col items-start"
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 1 }}
-                >
-                  <div className="flex items-start gap-1.5 mb-[7.75rem]">
+                  </motion.p>
+                </div>
+                <div className="flex flex-col items-start">
+                  <motion.div
+                    className="flex items-start gap-1.5 mb-[7.75rem]"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 3 }}
+                  >
                     <span className="text-sm font-normal leading-[1.32]">03</span>
                     <h3 className="text-42 font-semibold leading-[1.4] relative">
                       Code
                       <p className="text-xl leading-[1.8]">손쉬운 통합, 강력한 확장성</p>
                     </h3>
-                  </div>
-                  <Image
-                    src="/images/sub/sub_con03.png"
-                    alt="Framework"
-                    width={363}
-                    height={210}
-                    className="mb-[7.75rem]"
-                  />
-                  <p className="text-lg text-white leading-[1.8]">
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 3.4 }}
+                  >
+                    <Image
+                      src="/images/sub/sub_con03.png"
+                      alt="Framework"
+                      width={363}
+                      height={210}
+                      className="mb-[7.75rem]"
+                    />
+                  </motion.div>
+                  <motion.p
+                    className="text-lg text-white leading-[1.8]"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 3.8 }}
+                  >
                     Hugging Face 호환
                     <br />
                     REST API, 클라우드/온프레미스 지원
                     <br />
                     Colab 기반 데모 제공
-                  </p>
-                </motion.div>
+                  </motion.p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section ref={performanceRef} className="w-full mx-auto pt-[200px] pb-[100px] relative">
+        <section className="w-full mx-auto pt-[200px] pb-[100px] relative">
           <div className="container mx-auto">
-            <div className="flex flex-col items-center">
+            <div ref={performanceRef} className="flex flex-col items-center">
               <motion.h2
                 className="text-90 font-semibold leading-[1.1] tracking-[-0.01em] mb-10"
                 initial={{ opacity: 0, y: 100 }}
@@ -551,13 +590,20 @@ export default function OnnuriPage() {
                   onClick={() => handleListTabClick(0)}
                 >
                   <div className="relative">
-                    <Image
-                      src="/images/sub/sub_con04.png"
-                      alt="Framework"
-                      width={307}
-                      height={307}
-                      className="mt-[2.875rem] mb-11 group-hover:rotate-[360deg] transition-all duration-500"
-                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: 100 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.4 }}
+                    >
+                      <Image
+                        src="/images/sub/sub_con04.png"
+                        alt="Framework"
+                        width={307}
+                        height={307}
+                        className="mt-[2.875rem] mb-11"
+                      />
+                    </motion.div>
                     <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-[9px]">
                       <p className="text-xl leading-[1.72] tracking-[0.6px] text-[#ff7b7f]">ONNURI</p>
                       <h2 className="flex items-end text-80 font-semibold leading-[1] tracking-[-4px] bg-[linear-gradient(0deg,#B4B4B4_0%,#FFF_100%)] [background-clip:text] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] font-suit">
@@ -614,7 +660,7 @@ export default function OnnuriPage() {
                       alt="Framework"
                       width={307}
                       height={307}
-                      className="mt-[2.875rem] mb-11 group-hover:rotate-[360deg] transition-all duration-500"
+                      className="mt-[2.875rem] mb-11 group-hover:rotate-[360deg] transition-all duration-1000"
                     />
                   </div>
                   <div className="flex flex-col items-center justify-center gap-2.5">
@@ -840,9 +886,9 @@ export default function OnnuriPage() {
           </div>
         </section>
 
-        <section ref={usecaseRef} className="w-full mx-auto pt-[160px] pb-[100px] relative">
+        <section className="w-full mx-auto pt-[160px] pb-[100px] relative">
           <div className="container mx-auto">
-            <div className="flex flex-col items-center mb-[7.5rem]">
+            <div ref={usecaseRef} className="flex flex-col items-center mb-[7.5rem]">
               <motion.h2
                 className="text-90 font-semibold leading-[1.1] tracking-[-0.01em] mb-10"
                 initial={{ opacity: 0, y: 100 }}
