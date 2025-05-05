@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <Image src="/images/GATE.png" alt="logo" width={1920} height={1080} />
+      <Image src="/images/gate.png" alt="logo" width={1920} height={1080} />
       <div className="absolute top-0 left-0 w-full h-full">
         <Link
           href="/pc"
