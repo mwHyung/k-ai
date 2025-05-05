@@ -20,7 +20,7 @@ export default function MobilePage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center bg-[#EEEEEE] overflow-hidden py-[101px] h-screen">
+    <main className="flex flex-col items-center justify-center bg-[#EEEEEE] overflow-hidden h-screen">
       <div
         className="group absolute top-0 left-0 w-[calc(50%-209.5px)] h-full z-50 hover:bg-[linear-gradient(90deg,rgba(0,0,0,0.2)_0%,rgba(255,255,255,0.00)_100%)] transition-all duration-300 cursor-pointer"
         onClick={() => {

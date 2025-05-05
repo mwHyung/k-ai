@@ -12,7 +12,7 @@ export default function MobilePage() {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <main className="flex flex-col items-center justify-center bg-[#EEEEEE] overflow-hidden py-[101px] h-screen">
+    <main className="flex flex-col items-center justify-center bg-[#EEEEEE] overflow-hidden h-screen">
       {/* Hero Section */}
       <section
         ref={sectionRef}
