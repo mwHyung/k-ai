@@ -42,24 +42,40 @@ const features = [
 export default function KInspiration() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const featureWrapRefs = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const featureWrap = featureWrapRefs.current;
+    if (!section || !featureWrap) return;
 
     const Subtitle = section.querySelector("[data-title-animation]");
     const Title = section.querySelector("[data-main-title-animation]");
     const Description = section.querySelector("[data-description-animation]");
 
+    // Set initial opacity and transform of features
+    featureRefs.current.forEach((feature) => {
+      if (feature) {
+        gsap.set(feature, {
+          opacity: 0,
+          y: 50,
+          scale: 0.95,
+        });
+      }
+    });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top center",
-        end: "bottom 20%",
+        start: "top top",
+        end: "center top",
         toggleActions: "play none none none",
+        pin: true,
+        pinSpacing: true,
       },
     });
 
+    // Title animations sequence
     tl.fromTo(
       Subtitle,
       {
@@ -70,6 +86,7 @@ export default function KInspiration() {
         opacity: 1,
         y: 0,
         duration: 0.5,
+        ease: "power2.out",
       }
     )
       .fromTo(
@@ -82,6 +99,7 @@ export default function KInspiration() {
           opacity: 1,
           y: 0,
           duration: 0.5,
+          ease: "power2.out",
         },
         "-=0.2"
       )
@@ -95,22 +113,43 @@ export default function KInspiration() {
           opacity: 1,
           y: 0,
           duration: 0.5,
+          ease: "power2.out",
         },
         "-=0.2"
-      );
+      )
+      // Features animations after description
+      .add(() => {
+        featureRefs.current.forEach((feature, index) => {
+          gsap.to(feature, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: index * 0.1,
+            ease: "power2.out",
+          });
+        });
+      });
 
-    featureRefs.current.forEach((feature) => {
-      tl.from(
-        feature,
-        {
-          opacity: 0,
-          y: 200,
-          duration: 1,
-          ease: "power3.out",
+    gsap.fromTo(
+      featureWrap,
+      {
+        yPercent: 0,
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      {
+        yPercent: -80,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          toggleActions: "play none none none",
+          scrub: 0.5,
         },
-        "-=0.9"
-      );
-    });
+      }
+    );
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -121,7 +160,7 @@ export default function KInspiration() {
     <section ref={sectionRef} className="relative min-h-screen bg-gradient-to-b from-white to-[#E4E8E9] py-32">
       <div className="container flex justify-between max-w-[1700px] w-full mx-auto px-4">
         {/* Title Section */}
-        <div className="mb-24 flex-2/4 sticky top-32 h-fit">
+        <div className="mb-24 flex-2/4 h-fit">
           <KAITitle title="Meet K" subtitle="Inspiration" direction="left" className="mb-20" />
           <h2 className="text-[3.25rem] font-bold leading-[1.4] tracking-[-0.02em] mb-10" data-main-title-animation>
             KT는 &apos;진짜 한국형 AI&apos;,
@@ -137,7 +176,7 @@ export default function KInspiration() {
         </div>
 
         {/* Features Grid */}
-        <div className="flex gap-12 mt-[7rem] flex-2/4 flex-wrap">
+        <div ref={featureWrapRefs} className="flex gap-12 mt-[7rem] flex-2/4 flex-wrap">
           {features.map((feature, index) => (
             <div
               key={feature.title}

@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const FloatingBanner = () => {
+interface FloatingBannerProps {
+  device: "pc" | "mobile";
+}
+
+const FloatingBanner = ({ device }: FloatingBannerProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [bottom, setBottom] = useState(false);
 
@@ -38,7 +42,8 @@ const FloatingBanner = () => {
     <div
       className={`left-1/2 -translate-x-1/2 z-50 rounded-full transition-all duration-300 ${
         isVisible ? "w-[296px]" : "w-[240px]"
-      } ${bottom ? "absolute bottom-14" : "fixed bottom-[5.813rem]"}`}
+      } ${bottom ? "absolute bottom-14" : "fixed bottom-[5.813rem]"}
+      ${device === "mobile" ? "!absolute !bottom-8" : ""}`}
       role="button"
       tabIndex={0}
       aria-label="Ask K-ON"

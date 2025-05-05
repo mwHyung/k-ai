@@ -58,19 +58,6 @@ export default function KExperienceDemo() {
         start: "40% center",
         end: "bottom center",
         toggleActions: "play none none none",
-
-        onEnter: () => {
-          document.documentElement.classList.add("dark");
-        },
-        onLeave: () => {
-          document.documentElement.classList.remove("dark");
-        },
-        onEnterBack: () => {
-          document.documentElement.classList.add("dark");
-        },
-        onLeaveBack: () => {
-          document.documentElement.classList.remove("dark");
-        },
       },
     });
 
@@ -303,7 +290,7 @@ export default function KExperienceDemo() {
         </div>
 
         <div className="flex justify-center relative z-[51]">
-          <Link href="/onnuri">
+          <Link href="/pc/chat">
             <button className="inline-flex items-center gap-2 pl-10 pr-8 py-6 border border-[#AAAAAA] rounded-full text-white hover:bg-white/10 transition-colors">
               <span className="text-lg font-semibold leading-[1.3] tracking-[-0.01em]">K-AI 체험하러 가기</span>
               <Image src="/images/icons/arrow_right_white.svg" alt="arrow-right" width={20} height={20} />

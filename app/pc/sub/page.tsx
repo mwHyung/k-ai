@@ -2,14 +2,14 @@
 
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
-import FloatingBanner from "../components/FloatingBanner";
+import FloatingBanner from "@/app/components/FloatingBanner";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import ModelComparison from "../components/ModelComparison";
-import FeaturesSection from "../components/FeaturesSection";
-import UseCaseSlider from "../components/UseCaseSlider";
-import ImageSlider from "../components/ImageSlider";
+import ModelComparison from "@/app/components/ModelComparison";
+import FeaturesSection from "@/app/components/FeaturesSection";
+import UseCaseSlider from "@/app/components/UseCaseSlider";
+import ImageSlider from "@/app/components/ImageSlider";
 
 export default function OnnuriPage() {
   const lists = [
@@ -93,14 +93,16 @@ export default function OnnuriPage() {
       { threshold: 0.1 }
     );
 
+    const observedNode = countRef.current;
+
     // ref가 있으면 observe 시작
-    if (countRef.current) {
-      observer.observe(countRef.current);
+    if (observedNode) {
+      observer.observe(observedNode);
     }
 
     return () => {
-      if (countRef.current) {
-        observer.unobserve(countRef.current);
+      if (observedNode) {
+        observer.unobserve(observedNode);
       }
     };
   }, []);
@@ -202,7 +204,7 @@ export default function OnnuriPage() {
     <div className="bg-black text-white">
       <Header />
       <main className="relative">
-        <FloatingBanner />
+        <FloatingBanner device="pc" />
         {/* Hero Section */}
         <section className="relative w-full h-screen mx-auto">
           <video src="/video/main_visual_2.mp4" autoPlay muted loop className="w-full h-full object-cover" />

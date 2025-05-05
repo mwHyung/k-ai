@@ -23,8 +23,8 @@ const ExperienceCard = ({ title, description, videoSrc }: ExperienceCardProps) =
         <h3 className="text-64 font-semibold tracking-[-0.05em] leading-[1.1] mb-5 font-plus">{title}</h3>
         <p className="text-lg font-semibold leading-[1.58] text-center mb-6">{description}</p>
 
-        <Link href="/onnuri">
-          <button className="inline-flex items-center gap-2 pl-[2.25rem] pr-[1.75rem] py-[1.125rem] bg-white/70 backdrop-blur-[25px] rounded-full text-white transition-all opacity-0 group-hover:opacity-100 duration-800 group-hover:delay-400">
+        <Link href="/pc/sub">
+          <button className="inline-flex items-center gap-2 pl-[2.25rem] pr-[1.75rem] py-[1.125rem] bg-white/70 backdrop-blur-[25px] rounded-full text-white transition-all opacity-0 group-hover:opacity-100 duration-800 group-hover:delay-400 cursor-pointer">
             <span className="text-base text-black font-medium leading-[1.3] tracking-[-0.016em]">더 알아보기</span>
             <Image src="/images/icons/arrow_right_black.svg" alt="arrow-right" width={20} height={20} />
           </button>

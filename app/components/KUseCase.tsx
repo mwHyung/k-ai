@@ -51,33 +51,34 @@ const CaseCard = ({ image, title, date, tags, gradient }: CaseCardProps) => {
 
 export default function KUseCase() {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!sectionRef.current || !titleRef.current || !cardsRef.current) return;
+    if (!sectionRef.current || !cardsRef.current) return;
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top center",
-        end: "bottom center",
-        toggleActions: "play none none reverse",
+        end: "170% center",
+        toggleActions: "play none none none",
+
+        onLeave: () => {
+          document.documentElement.classList.remove("dark");
+        },
+        onEnterBack: () => {
+          document.documentElement.classList.add("dark");
+        },
       },
     });
 
-    tl.from(titleRef.current.children, {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      stagger: 0.2,
-    }).from(
-      cardsRef.current.children,
+    tl.from(
+      cardsRef.current,
       {
         opacity: 0,
-        y: 30,
-        duration: 0.8,
+        y: 300,
+        duration: 1.5,
         stagger: 0.2,
       },
       "-=0.4"
@@ -133,9 +134,9 @@ export default function KUseCase() {
   ];
 
   return (
-    <section ref={sectionRef} className="relative bg-black pt-60 pb-44 overflow-hidden">
+    <section ref={sectionRef} className="relative mb-[150vh] bg-black pt-60 pb-44 overflow-hidden">
       <div className="mx-auto w-[1920px]">
-        <div ref={cardsRef} className="relative">
+        <div ref={cardsRef} className="relative" data-cards-animation>
           <Swiper
             modules={[Autoplay, Pagination]}
             spaceBetween={40}

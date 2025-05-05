@@ -97,7 +97,7 @@ export default function Footer() {
                 <FooterColumn key={column.title} {...column} isSubPage={isSubPage} />
               ))}
               <div className="flex items-center gap-0.5">
-                <Link href="#" className="text-lg font-semibold leading-[1.3]">
+                <Link href="/pc/chat" className="text-lg font-semibold leading-[1.3]">
                   Experience
                 </Link>
                 <Image

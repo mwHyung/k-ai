@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import KAITitle from "./kAITitle";
+import CountUp from "react-countup";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,51 +16,28 @@ interface StatCardProps {
 
 const StatCard = ({ title, value, increase }: StatCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const countRef = useRef<HTMLSpanElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const countElement = countRef.current;
-    const cardElement = cardRef.current;
-    if (!countElement || !cardElement) return;
+    if (!cardRef.current) return;
 
-    // Extract numeric value and decimal places
-    const numericValue = parseFloat(value.replace(/,/g, ""));
-    const [, decimalPart] = value.replace(/,/g, "").split(".");
-    const decimalPlaces = decimalPart ? decimalPart.length : 0;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: cardElement,
-        start: "-20% bottom",
-        end: "bottom center",
-        toggleActions: "play none none none",
-      },
-    });
-
-    // Use GSAP for smooth animation
-    tl.fromTo(
-      countElement,
-      {
-        textContent: "0",
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
       },
       {
-        duration: 2,
-        textContent: numericValue,
-        ease: "power2.out",
-        delay: 3.8,
-        snap: {
-          textContent: 1 / 10 ** decimalPlaces,
-        },
-        onUpdate: function () {
-          const currentValue = parseFloat(countElement.textContent || "0");
-          const formattedValue = currentValue.toFixed(decimalPlaces);
-          const [formattedInt, formattedDec] = formattedValue.split(".");
-          const withCommas = parseInt(formattedInt).toLocaleString();
-          countElement.textContent = formattedDec ? `${withCommas}.${formattedDec}` : withCommas;
-        },
+        threshold: 0.5,
       }
     );
-  }, [value]);
+
+    observer.observe(cardRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div ref={cardRef} className="flex items-end justify-between gap-2 border-b border-black pb-0.5 px-2">
@@ -70,11 +48,19 @@ const StatCard = ({ title, value, increase }: StatCardProps) => {
         <span className="text-base font-medium leading-[1.02] tracking-[-0.01em] font-plus text-[#B8B8B8] mb-2">
           {increase}
         </span>
-        <span
-          ref={countRef}
-          className="text-[4.5rem] font-semibold leading-[1.02] tracking-[-0.02em] font-plus text-black"
-        >
-          0
+        <span className="text-[4.5rem] font-semibold leading-[1.02] tracking-[-0.02em] font-plus text-black">
+          {isVisible ? (
+            <CountUp
+              start={0}
+              end={parseFloat(value.replace(/,/g, ""))}
+              duration={4}
+              separator=","
+              decimals={value.includes(".") ? value.split(".")[1].length : 0}
+              decimal="."
+            />
+          ) : (
+            "0"
+          )}
         </span>
       </div>
     </div>
@@ -104,8 +90,21 @@ export default function KAILab() {
       scrollTrigger: {
         trigger: section,
         start: "top center",
-        end: "bottom center",
+        end: "75% center",
         toggleActions: "play none none none",
+
+        onEnter: () => {
+          document.documentElement.classList.remove("dark");
+        },
+        onLeave: () => {
+          document.documentElement.classList.add("dark");
+        },
+        onEnterBack: () => {
+          document.documentElement.classList.remove("dark");
+        },
+        onLeaveBack: () => {
+          document.documentElement.classList.remove("dark");
+        },
       },
     });
 
@@ -118,46 +117,58 @@ export default function KAILab() {
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.6,
+        ease: "power3.out",
       }
     )
       .from(title, {
         opacity: 0,
         y: 30,
-        duration: 0.8,
+        duration: 0.6,
         stagger: 0.2,
+        ease: "power3.out",
       })
+      .fromTo(
+        MainTitleLine,
+        {
+          scaleX: 0,
+          opacity: 0,
+        },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.inOut",
+        },
+        "-=0.2"
+      )
+      .fromTo(
+        MainTitleCulture,
+        {
+          x: -50,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        "-=0.2"
+      )
       .fromTo(
         MainTitleVideo,
         {
           opacity: 0,
           y: 30,
+          scale: 0.98,
         },
         {
           opacity: 1,
           y: 0,
-        },
-        "-=0.8"
-      )
-      .fromTo(
-        MainTitleCulture,
-        {
-          x: -70,
-        },
-        {
-          x: 0,
+          scale: 1,
           duration: 0.8,
-        }
-      )
-      .fromTo(
-        MainTitleLine,
-        {
-          opacity: 0,
-          duration: 0.8,
-        },
-        {
-          opacity: 1,
-          duration: 0.8,
+          ease: "power2.out",
         },
         "-=0.4"
       )
@@ -170,8 +181,10 @@ export default function KAILab() {
         {
           opacity: 1,
           y: 0,
+          duration: 0.6,
+          ease: "power3.out",
         },
-        "-=0.4"
+        "-=0.2"
       )
       .fromTo(
         MainTitleExplain,
@@ -182,14 +195,22 @@ export default function KAILab() {
         {
           opacity: 1,
           y: 0,
-        }
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        "-=0.3"
       )
-      .from(content.children, {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.2,
-      });
+      .from(
+        content.children,
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      );
 
     return () => {
       tl.kill();
@@ -199,7 +220,7 @@ export default function KAILab() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen bg-white pt-40 pb-[9.563rem] dark:bg-black transition-all duration-700"
+      className="relative min-h-screen bg-white pt-40 pb-[150vh] dark:bg-black transition-all duration-700"
     >
       <div className="container max-w-[1700px] mx-auto">
         <div>

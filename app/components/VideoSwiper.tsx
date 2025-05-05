@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -13,7 +13,7 @@ const VideoSwiper = () => {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [slideIndex, setSlideIndex] = useState(0); // Add state for slide index
 
-  const handleSlideChange = () => {
+  const handleSlideChange = useCallback(() => {
     if (!swiper) return;
     const activeIndex = swiper.realIndex;
     setSlideIndex(activeIndex); // Update slide index to trigger animation reset
@@ -29,7 +29,7 @@ const VideoSwiper = () => {
         }
       }
     });
-  };
+  }, [swiper]);
 
   useEffect(() => {
     if (swiper) {
@@ -39,7 +39,7 @@ const VideoSwiper = () => {
       // Start autoplay
       swiper.autoplay.start();
     }
-  }, [swiper]);
+  }, [swiper, handleSlideChange]);
 
   return (
     <div className="w-full h-screen relative">
@@ -95,7 +95,7 @@ const VideoSwiper = () => {
                       transitionEnd: { color: "black" },
                     }}
                     transition={{ delay: 1, duration: 3.5, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus whitespace-nowrap"
                   >
                     The True AI That Drives &apos;K&apos;
                   </motion.p>
@@ -107,7 +107,7 @@ const VideoSwiper = () => {
                       transitionEnd: { color: "black" },
                     }}
                     transition={{ delay: 2, duration: 2.5, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus whitespace-nowrap"
                   >
                     KT Is Leading The Way
                   </motion.p>
@@ -132,7 +132,7 @@ const VideoSwiper = () => {
                       opacity: 1,
                     }}
                     transition={{ delay: 1, duration: 2, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus whitespace-nowrap"
                   >
                     True AI Tailored For Korea,
                   </motion.p>
@@ -143,7 +143,7 @@ const VideoSwiper = () => {
                       opacity: 1,
                     }}
                     transition={{ delay: 2, duration: 2, ease: "easeOut" }}
-                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus"
+                    className="text-white text-82 font-semibold leading-[1.18] tracking-[-2px] text-center transition-colors duration-1000 font-plus whitespace-nowrap"
                   >
                     Powered By Onnuri
                   </motion.p>

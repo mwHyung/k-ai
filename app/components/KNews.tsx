@@ -19,32 +19,30 @@ const NewsCard = forwardRef<HTMLDivElement, NewsCardProps>(
   ({ image, title, description, date, isMain = false }, ref) => {
     return (
       <div className={`${isMain ? "w-full" : "w-[400px]"}`} ref={ref}>
-        <div className={`${isMain ? "sticky top-32" : ""}`}>
-          <div className={`relative ${isMain ? "h-[600px] mb-10" : "h-[280px] mb-6"} rounded-2xl overflow-hidden`}>
-            <Image src={image} alt={title} fill className="object-cover" />
-            {isMain && (
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-[rgba(0,0,0,0)] to-[rgba(0,0,0,0.03)]" />
-            )}
-          </div>
-          <div className={`flex flex-col ${isMain ? "gap-3.5" : "gap-2"}`}>
-            <h3
-              className={`${
-                isMain
-                  ? "text-[1.875rem] leading-[1.19] tracking-[-0.03em] font-bold"
-                  : "text-[1.25rem] leading-normal tracking-[-0.6px] font-bold text-black"
-              }`}
-            >
-              {title}
-            </h3>
-            <p
-              className={`text-ellipsis overflow-hidden whitespace-nowrap ${
-                isMain ? "text-lg leading-[1.58] text-[#333333]" : "text-base leading-[1.48] text-[#666666]"
-              }`}
-            >
-              {description}
-            </p>
-            {date && <p className="text-base leading-[1.32] text-[#666666] pt-3">{date}</p>}
-          </div>
+        <div className={`relative ${isMain ? "h-[600px] mb-10" : "h-[280px] mb-6"} rounded-2xl overflow-hidden`}>
+          <Image src={image} alt={title} fill className="object-cover" />
+          {isMain && (
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-[rgba(0,0,0,0)] to-[rgba(0,0,0,0.03)]" />
+          )}
+        </div>
+        <div className={`flex flex-col ${isMain ? "gap-3.5" : "gap-2"}`}>
+          <h3
+            className={`${
+              isMain
+                ? "text-[1.875rem] leading-[1.19] tracking-[-0.03em] font-bold"
+                : "text-[1.25rem] leading-normal tracking-[-0.6px] font-bold text-black"
+            }`}
+          >
+            {title}
+          </h3>
+          <p
+            className={`text-ellipsis overflow-hidden whitespace-nowrap ${
+              isMain ? "text-lg leading-[1.58] text-[#333333]" : "text-base leading-[1.48] text-[#666666]"
+            }`}
+          >
+            {description}
+          </p>
+          {date && <p className="text-base leading-[1.32] text-[#666666] pt-3">{date}</p>}
         </div>
       </div>
     );
@@ -58,6 +56,7 @@ export default function KNews() {
   const titleRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardWrapRef = useRef<HTMLDivElement>(null);
 
   const cards = [
     {
@@ -83,42 +82,66 @@ export default function KNews() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top center",
-        end: "bottom center",
+        start: "top top",
+        end: "center top",
         toggleActions: "play none none none",
+        pin: true,
+        pinSpacing: true,
       },
     });
 
     tl.from(titleRef.current.children, {
       opacity: 0,
-      y: 30,
-      duration: 0.8,
-      stagger: 0.2,
+      y: 50,
+      duration: 1,
+      stagger: 0.3,
+      ease: "power2.out",
     }).from(
       contentRef.current.children,
       {
         opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.2,
+        y: 50,
+        duration: 1,
+        stagger: 0.3,
         ease: "power2.out",
       },
-      "-=0.4"
+      "-=0.6"
     );
 
-    cardRefs.current.forEach((child, index) => {
+    cardRefs.current.forEach((child) => {
       tl.from(
         child,
         {
           opacity: 0,
-          y: 100,
-          duration: 0.4,
-          delay: index * 0.1,
+          y: 80,
+          duration: 0.8,
+          stagger: 0.15,
           ease: "power2.out",
         },
-        "-=0.2"
+        "-=0.6"
       );
     });
+
+    gsap.fromTo(
+      cardWrapRef.current,
+      {
+        yPercent: 0,
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      {
+        yPercent: -50,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "center top",
+          toggleActions: "play none none none",
+          scrub: 0.5,
+        },
+      }
+    );
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -126,7 +149,7 @@ export default function KNews() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-white py-[8.125rem] dark:bg-black transition-all duration-700">
+    <section ref={sectionRef} className="relative bg-white py-[8.125rem] dark:bg-black">
       <div className="container mx-auto">
         <div ref={titleRef} className="flex items-center justify-between gap-4 mb-12">
           <h2 className="text-52 font-plus font-semibold leading-[1.12] tracking-[-0.01em]">Latest news</h2>
@@ -142,7 +165,7 @@ export default function KNews() {
             description="영상 속 미세한 변화까지 감지하는 이미지 인식 AI '하늬(Hanee)'가 실제 의료 현장 테스트를 마쳤습니다."
             date="Apr 1, 2025"
           />
-          <div className="flex flex-col gap-[60px]">
+          <div ref={cardWrapRef} className="flex flex-col gap-[60px] bg-white">
             {cards.map((card, index) => (
               <NewsCard
                 key={index}

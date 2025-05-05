@@ -43,11 +43,11 @@ export default function ModelServices({ sectionIndex }: ModelServicesProps) {
   const modelNameRefs = useRef<(HTMLDivElement | null)[]>([]);
   const modelDotRefs = useRef<(HTMLDivElement | null)[]>([]);
   const modelTitleRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const modelDescRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    if (!section || hasAnimated.current) return;
 
     const SubTitleElement = section.querySelector("[data-title-animation]");
 
@@ -59,6 +59,9 @@ export default function ModelServices({ sectionIndex }: ModelServicesProps) {
         },
         end: "bottom bottom",
         toggleActions: "play none none none",
+        onEnter: () => {
+          hasAnimated.current = true;
+        },
       },
     });
 
@@ -97,47 +100,25 @@ export default function ModelServices({ sectionIndex }: ModelServicesProps) {
 
     // 3. Models animation - each element separately
     models.forEach((_, index) => {
-      // Set initial states
-      gsap.set(
-        [
-          modelNameRefs.current[index],
-          modelDotRefs.current[index],
-          modelTitleRefs.current[index],
-          modelDescRefs.current[index],
-        ],
-        {
-          opacity: 0,
-          y: 100,
-        }
-      );
+      // Set initial states for all elements
+      gsap.set([modelNameRefs.current[index], modelDotRefs.current[index], modelTitleRefs.current[index]], {
+        opacity: 0,
+        y: 100,
+      });
 
-      // Animate each element with slight delays
-      tl.to(modelNameRefs.current[index], {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        ease: "power2.out",
-      })
-        .to(
-          modelDotRefs.current[index],
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-          },
-          `-=0.45`
-        )
-        .to(
-          modelTitleRefs.current[index],
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-          },
-          `-=0.45`
-        );
+      // Animate each model group with staggered timing
+      tl.to(
+        [modelNameRefs.current[index], modelDotRefs.current[index], modelTitleRefs.current[index]],
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          stagger: 0.15, // Elements within each model animate with slight delay
+        },
+        // Add delay between model groups
+        index === 0 ? "+=0.2" : "-=0.4" // Changed to negative delay for overlapping animations
+      );
     });
 
     return () => {

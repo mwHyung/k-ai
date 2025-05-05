@@ -36,8 +36,12 @@ const config: Config = {
         "gradient-primary":
           "linear-gradient(90deg, #FF0347 0%, #F9F9F9 11.51%, #493AED 25.7%, #F108C6 33.52%, #CEC9FF 41.17%, #FF0347 60.35%, #0854FF 68.98%, #F05DAE 86.06%, #FF0347 100%)",
       },
+      boxShadow: {
+        "chat-input": "0px 4px 6px -4px rgba(0, 0, 0, 0.10)",
+      },
       animation: {
         loopScroll: "loopScroll 3s linear infinite",
+        blink: "blink 1s step-start infinite",
       },
     },
   },

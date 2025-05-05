@@ -14,10 +14,11 @@ interface KIntelligenceProps {
 
 const KIntelligence = ({ sectionIndex }: KIntelligenceProps) => {
   const sectionRef = useRef<HTMLElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    if (!section || hasAnimated.current) return;
 
     const titleElement = section.querySelector("[data-title-animation]");
     const descriptionElement = section.querySelector("[data-description-animation]");
@@ -30,10 +31,13 @@ const KIntelligence = ({ sectionIndex }: KIntelligenceProps) => {
       scrollTrigger: {
         trigger: section,
         start: () => {
-          return sectionIndex === 1 ? "-102% 100%" : "top top"; // Only trigger when section index is 1
+          return sectionIndex >= 1 ? "-102% 100%" : "top top";
         },
         end: "top top",
         toggleActions: "play none none none",
+        onEnter: () => {
+          hasAnimated.current = true;
+        },
       },
     });
 

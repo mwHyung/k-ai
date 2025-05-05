@@ -11,7 +11,7 @@ export default function Header() {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);
   const pathname = usePathname();
-  const isSubPage = pathname?.startsWith("/onnuri");
+  const isSubPage = pathname?.startsWith("/pc/sub");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,7 +71,7 @@ export default function Header() {
     >
       <div className="container max-w-[1920px] mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="relative flex items-center transition-transform duration-300 hover:scale-105">
+        <Link href="/pc" className="relative flex items-center transition-transform duration-300 hover:scale-105">
           <div className="w-[5.625rem] h-[1.875rem] relative">
             <div className="absolute top-0 left-0 w-[1.875rem] h-[1.875rem]" />
             <Image
@@ -86,25 +86,25 @@ export default function Header() {
         {/* Navigation */}
         <nav className="flex items-center gap-12">
           <Link
-            href="/onnuri"
+            href="/pc/sub"
             className="text-[1.063rem] font-semibold uppercase transition-all duration-300 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 hover:-translate-y-0.5"
           >
             Model
           </Link>
           <Link
-            href="/agent"
+            href="#"
             className="text-[1.063rem] font-semibold uppercase transition-all duration-300 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 hover:-translate-y-0.5"
           >
             Agent
           </Link>
           <Link
-            href="/rai"
+            href="#"
             className="text-[1.063rem] font-semibold uppercase transition-all duration-300 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 hover:-translate-y-0.5"
           >
             RAI
           </Link>
           <Link
-            href="/experience"
+            href="/pc/chat"
             className="flex items-center gap-0.5 text-[1.063rem] font-semibold transition-all duration-300 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 hover:-translate-y-0.5"
           >
             Experience
