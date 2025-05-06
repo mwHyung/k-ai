@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
@@ -6,6 +6,10 @@ import "swiper/css";
 import "swiper/css/effect-creative";
 import "swiper/css/pagination";
 import { type Swiper as SwiperType } from "swiper";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const slides = [
   {
@@ -43,6 +47,24 @@ const UseCaseSlider = () => {
     setCurrentSlide(swiper.realIndex);
   };
 
+  useEffect(() => {
+    gsap.fromTo(
+      ".usecase-swiper .swiper-slide-active",
+      {
+        scale: 0.6,
+      },
+      {
+        scale: 1,
+        scrollTrigger: {
+          trigger: ".usecase-swiper",
+          start: "top top",
+          end: "+=100%",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   return (
     <div className="w-full relative">
       <Swiper
@@ -50,20 +72,23 @@ const UseCaseSlider = () => {
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={2.5}
+        parallax={true}
         initialSlide={0}
         creativeEffect={{
+          limitProgress: 2,
           prev: {
             shadow: true,
-            translate: ["-125%", "20%", -400],
+            translate: ["-125%", "12%", -400],
             rotate: [0, 0, -5],
           },
           next: {
             shadow: true,
-            translate: ["125%", "20%", -400],
+            translate: ["125%", "12%", -400],
             rotate: [0, 0, 5],
           },
         }}
         loop={true}
+        speed={200}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -116,7 +141,7 @@ const UseCaseSlider = () => {
       </Swiper>
       <div className="relative w-full flex items-center justify-center mt-10">
         <div className="swiper-pagination relative" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-0.5 bg-[#F82929]">
+        <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-[#F82929]">
           <div ref={progressBarRef} className="h-full bg-[#262626] origin-right" style={{ transform: "scaleX(0)" }} />
         </div>
       </div>

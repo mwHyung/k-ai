@@ -79,11 +79,11 @@ const footerColumns = [
 
 export default function Footer() {
   const pathname = usePathname();
-  const isSubPage = pathname?.startsWith("/onnuri");
+  const isSubPage = pathname?.startsWith("/pc/sub");
 
   return (
     <footer className={`relative z-[100] ${isSubPage ? "bg-black" : "bg-white"}`}>
-      <div className={`px-10 pt-[3.313rem] border-t ${isSubPage ? "border-white/40" : " border-[#EAEAEA]"}`}>
+      <div className={`px-10 pt-[3.313rem] border-t ${isSubPage ? "border-white/20" : " border-[#EAEAEA]"}`}>
         <div className="flex items-start">
           <Image
             src={`${isSubPage ? "/images/logo_white.png" : "/images/logo.svg"}`}

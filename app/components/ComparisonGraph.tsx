@@ -63,7 +63,7 @@ const ComparisonGraph: React.FC<ComparisonGraphProps> = ({ midmData, onnuriData 
                   className="w-16 bg-gradient-to-t from-[#474747] to-[#808080]"
                   initial={{ height: 0 }}
                   animate={{ height: `${(item.percentage / maxPercentage) * 480}px` }}
-                  transition={{ duration: 1, delay: index * 0.2, ease: "easeInOut" }}
+                  transition={{ duration: 1, delay: index * 0.2, ease: [0.25, 1, 0.5, 1] }}
                 />
                 <span className="text-sm mt-2">{item.size}</span>
               </div>
@@ -98,7 +98,7 @@ const ComparisonGraph: React.FC<ComparisonGraphProps> = ({ midmData, onnuriData 
                   className="w-16 bg-gradient-to-t from-[#00308B] to-[#B4CEFF]"
                   initial={{ height: 0 }}
                   animate={{ height: `${(item.percentage / maxPercentage) * 480}px` }}
-                  transition={{ duration: 1, delay: index * 0.2 + 1, ease: "easeInOut" }}
+                  transition={{ duration: 1, delay: index * 0.2 + 1, ease: [0.25, 1, 0.5, 1] }}
                 />
                 <span className="text-sm mt-2">{item.size}</span>
               </div>

@@ -10,6 +10,10 @@ import ModelComparison from "@/app/components/ModelComparison";
 import FeaturesSection from "@/app/components/FeaturesSection";
 import UseCaseSlider from "@/app/components/UseCaseSlider";
 import ImageSlider from "@/app/components/ImageSlider";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function OnnuriPage() {
   const lists = [
@@ -33,24 +37,6 @@ export default function OnnuriPage() {
     { title: "7B/13B 선택형 스케일", description: "경량부터 고성능까지,\n7B 및 13B 모델로 유연한 적용이 가능합니다." },
   ];
 
-  const animationOptions: Variants = {
-    offscreen: {
-      scale: 0,
-      originX: "top",
-      originY: "right",
-    },
-    onscreen: {
-      scale: 1,
-      originX: "top",
-      originY: "right",
-      transition: {
-        duration: 2,
-        ease: "easeInOut",
-        delayChildren: 0.4,
-      },
-    },
-  };
-
   const animationOptions2: Variants = {
     offscreen: {
       opacity: 0,
@@ -60,7 +46,7 @@ export default function OnnuriPage() {
       transition: {
         duration: 2,
         ease: "easeInOut",
-        delay: 2,
+        delay: 3,
         delayChildren: 1,
       },
     },
@@ -94,7 +80,7 @@ export default function OnnuriPage() {
     );
 
     const observedNode = countRef.current;
-
+    console.log(observedNode);
     // ref가 있으면 observe 시작
     if (observedNode) {
       observer.observe(observedNode);
@@ -199,6 +185,42 @@ export default function OnnuriPage() {
   const handleListTabClick = (index: number) => {
     setActiveListTab(index);
   };
+
+  useEffect(() => {
+    const element = document.querySelector("[data-motion-animation]");
+    const items = document.querySelectorAll("[data-motion-item-animation]");
+    console.log(items);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        start: "top center",
+        end: "+=100%",
+      },
+    });
+
+    const animateChildren = (elements: NodeListOf<Element>) => {
+      if (!elements) return;
+
+      elements.forEach((element, i) => {
+        Array.from(element.children).forEach((child, index) => {
+          tl.fromTo(
+            child,
+            { opacity: 0, y: 100 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+            },
+            index === 0 && i === 0 ? undefined : "-=0.7"
+          );
+        });
+      });
+    };
+
+    animateChildren(items);
+  }, []);
 
   return (
     <div className="bg-black text-white">
@@ -434,63 +456,38 @@ export default function OnnuriPage() {
                 <br />
                 어떻게 설계되었는지, 어떻게 구현되었는지, 그리고 왜 믿을 수 있는지를 이곳에서 확인하세요.
               </motion.p>
-              <div className="grid grid-cols-3 gap-[12.813rem]">
-                <div className="flex flex-col items-start">
-                  <motion.div
-                    className="flex items-start gap-1.5 mb-[6.375rem]"
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                  >
+              <div className="grid grid-cols-3 gap-[12.813rem]" data-motion-animation>
+                {/* 01 */}
+                <div className="flex flex-col items-start" data-motion-item-animation>
+                  <div className="flex items-start gap-1.5 mb-[6.375rem]">
                     <span className="text-sm font-normal leading-[1.32]">01</span>
                     <h3 className="text-42 font-semibold leading-[1.4] relative">
                       Framework
                       <p className="text-xl leading-[1.8]">한국어에 최적화된 아키텍처</p>
                     </h3>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 1 }}
-                  >
+                  </div>
+                  <div>
                     <Image src="/images/sub/sub_con01.png" alt="Framework" width={307} height={307} className="mb-24" />
-                  </motion.div>
-                  <motion.p
-                    className="text-lg text-white leading-[1.8]"
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 1.4 }}
-                  >
+                  </div>
+                  <p className="text-lg text-white leading-[1.8]">
                     한글 형태소 분석에 특화된 토크나이저
                     <br />
                     한국 문화 데이터 3조 토큰 규모의 프리트레이닝
                     <br />
                     전문가 피드백 기반 RLHF 적용
-                  </motion.p>
+                  </p>
                 </div>
-                <div className="flex flex-col items-start">
-                  <motion.div
-                    className="flex items-start gap-1.5 mb-[5.625rem]"
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 1.8 }}
-                  >
+
+                {/* 02 */}
+                <div className="flex flex-col items-start" data-motion-item-animation>
+                  <div className="flex items-start gap-1.5 mb-[5.625rem]">
                     <span className="text-sm font-normal leading-[1.32]">02</span>
                     <h3 className="text-42 font-semibold leading-[1.4] relative">
                       Publication
                       <p className="text-xl leading-[1.8]">세계가 주목한 연구 성과</p>
                     </h3>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 2.2 }}
-                  >
+                  </div>
+                  <div>
                     <Image
                       src="/images/sub/sub_con02.png"
                       alt="Framework"
@@ -498,41 +495,26 @@ export default function OnnuriPage() {
                       height={276}
                       className="mb-[5.75rem] ml-10"
                     />
-                  </motion.div>
-                  <motion.p
-                    className="text-lg text-white leading-[1.8]"
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 2.6 }}
-                  >
+                  </div>
+                  <p className="text-lg text-white leading-[1.8]">
                     한국어 특화 토크나이징 알고리즘 개발
                     <br />
                     문화적 맥락 이해를 위한 새로운 학습 방법론 제시
                     <br />
                     언어 모델의 문화적 편향 측정 및 완화 기법
-                  </motion.p>
+                  </p>
                 </div>
-                <div className="flex flex-col items-start">
-                  <motion.div
-                    className="flex items-start gap-1.5 mb-[7.75rem]"
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 3 }}
-                  >
+
+                {/* 03 */}
+                <div className="flex flex-col items-start" data-motion-item-animation>
+                  <div className="flex items-start gap-1.5 mb-[7.75rem]">
                     <span className="text-sm font-normal leading-[1.32]">03</span>
                     <h3 className="text-42 font-semibold leading-[1.4] relative">
                       Code
                       <p className="text-xl leading-[1.8]">손쉬운 통합, 강력한 확장성</p>
                     </h3>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 3.4 }}
-                  >
+                  </div>
+                  <div>
                     <Image
                       src="/images/sub/sub_con03.png"
                       alt="Framework"
@@ -540,20 +522,14 @@ export default function OnnuriPage() {
                       height={210}
                       className="mb-[7.75rem]"
                     />
-                  </motion.div>
-                  <motion.p
-                    className="text-lg text-white leading-[1.8]"
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 3.8 }}
-                  >
+                  </div>
+                  <p className="text-lg text-white leading-[1.8]">
                     Hugging Face 호환
                     <br />
                     REST API, 클라우드/온프레미스 지원
                     <br />
                     Colab 기반 데모 제공
-                  </motion.p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -593,10 +569,10 @@ export default function OnnuriPage() {
                 >
                   <div className="relative">
                     <motion.div
-                      initial={{ opacity: 0, y: 100 }}
-                      whileInView={{ opacity: 1, y: 0 }}
+                      initial={{ rotate: 360 }}
+                      whileInView={{ rotate: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.4 }}
+                      transition={{ duration: 0.8, delay: 1, ease: [0.25, 1, 0.5, 1] }}
                     >
                       <Image
                         src="/images/sub/sub_con04.png"
@@ -635,10 +611,75 @@ export default function OnnuriPage() {
                     <Image
                       src="/images/sub/sub_con05.png"
                       alt="Framework"
-                      width={346}
-                      height={282}
+                      width={323}
+                      height={293}
                       className="mt-[2.875rem] mb-11"
                     />
+                    <div className="absolute top-0 left-0 w-full h-[293px] overflow-hidden mt-[0.3rem]">
+                      <motion.div
+                        initial={{ height: 0, y: -25 }}
+                        whileInView={{ height: 137, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1, ease: [0.25, 1, 0.5, 1] }}
+                        className="absolute left-0 -bottom-6 -translate-x-3.5"
+                      >
+                        <Image src="/images/sub/sub_data_chat1.png" alt="Framework" width={66} height={137} />
+                      </motion.div>
+                      <motion.div
+                        initial={{ height: 0, y: -25 }}
+                        whileInView={{ height: 173, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.2, ease: [0.25, 1, 0.5, 1] }}
+                        className="absolute left-0 -bottom-6 translate-x-8.5"
+                      >
+                        <Image src="/images/sub/sub_data_chat2.png" alt="Framework" width={66} height={173} />
+                      </motion.div>
+                      <motion.div
+                        initial={{ height: 0, y: -25 }}
+                        whileInView={{ height: 155, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.4, ease: [0.25, 1, 0.5, 1] }}
+                        className="absolute left-0 -bottom-6 translate-x-20.5"
+                      >
+                        <Image src="/images/sub/sub_data_chat3.png" alt="Framework" width={66} height={155} />
+                      </motion.div>
+                      <motion.div
+                        initial={{ height: 0, y: -25 }}
+                        whileInView={{ height: 173, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.6, ease: [0.25, 1, 0.5, 1] }}
+                        className="absolute left-0 -bottom-6 translate-x-32.5"
+                      >
+                        <Image src="/images/sub/sub_data_chat4.png" alt="Framework" width={66} height={173} />
+                      </motion.div>
+                      <motion.div
+                        initial={{ height: 0, y: -25 }}
+                        whileInView={{ height: 153, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 1.8, ease: [0.25, 1, 0.5, 1] }}
+                        className="absolute right-0 -bottom-6 -translate-x-20"
+                      >
+                        <Image src="/images/sub/sub_data_chat5.png" alt="Framework" width={66} height={153} />
+                      </motion.div>
+                      <motion.div
+                        initial={{ height: 0, y: -25 }}
+                        whileInView={{ height: 135, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 2, ease: [0.25, 1, 0.5, 1] }}
+                        className="absolute right-0 -bottom-6 -translate-x-8"
+                      >
+                        <Image src="/images/sub/sub_data_chat6.png" alt="Framework" width={66} height={135} />
+                      </motion.div>
+                      <motion.div
+                        initial={{ height: 0, y: -25 }}
+                        whileInView={{ height: 153, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 2.2, ease: [0.25, 1, 0.5, 1] }}
+                        className="absolute right-0 -bottom-6 translate-x-3.5"
+                      >
+                        <Image src="/images/sub/sub_data_chat7.png" alt="Framework" width={66} height={153} />
+                      </motion.div>
+                    </div>
                   </div>
                   <div className="flex flex-col items-center justify-center gap-2.5">
                     <h3 className="text-30 font-semibold leading-[1.6] relative">데이터 크기별 진화</h3>
@@ -649,7 +690,7 @@ export default function OnnuriPage() {
                   </div>
                 </motion.div>
                 <motion.div
-                  className="group flex flex-col items-center pb-9 rounded-[20px] border border-[#360053] bg-[linear-gradient(145deg,rgba(6,14,44,0.80)_72.75%,rgba(145,54,187,0.60)_112.09%)] cursor-pointer"
+                  className="flex flex-col items-center pb-9 rounded-[20px] border border-[#360053] bg-[linear-gradient(145deg,rgba(6,14,44,0.80)_72.75%,rgba(145,54,187,0.60)_112.09%)] cursor-pointer"
                   initial={{ opacity: 0, y: 100 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -660,10 +701,19 @@ export default function OnnuriPage() {
                     <Image
                       src="/images/sub/sub_con06.png"
                       alt="Framework"
-                      width={307}
-                      height={307}
-                      className="mt-[2.875rem] mb-11 group-hover:rotate-[360deg] transition-all duration-1000"
+                      width={280}
+                      height={280}
+                      className="mt-[2.875rem] mb-11"
                     />
+                    <motion.div
+                      initial={{ opacity: 0, rotate: -360 }}
+                      whileInView={{ opacity: 1, rotate: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 2, delay: 1.8, ease: [0.25, 1, 0.5, 1] }}
+                      className="absolute top-1/2 left-1/2 -translate-x-26 -translate-y-1/2 w-[176px] h-[176px] flex flex-col items-center justify-center origin-[57%_50%]"
+                    >
+                      <Image src="/images/sub/sub_con06-2.png" alt="Framework" width={150} height={176} />
+                    </motion.div>
                   </div>
                   <div className="flex flex-col items-center justify-center gap-2.5">
                     <h3 className="text-30 font-semibold leading-[1.6] relative">ONNURI 성능 지표</h3>
@@ -780,27 +830,102 @@ export default function OnnuriPage() {
                             <div className="relative rounded-full overflow-hidden w-full h-full">
                               <motion.div
                                 className="w-full h-full rounded-full bg-black border border-[#A40E26] absolute top-0 right-0 overflow-hidden"
-                                initial="offscreen"
-                                whileInView="onscreen"
-                                viewport={{
-                                  amount: 0.4,
-                                  once: true,
+                                initial={{
+                                  scale: 0,
+                                  originX: "top",
+                                  originY: "right",
                                 }}
-                                variants={animationOptions}
+                                whileInView={{
+                                  scale: 1,
+                                  originX: "top",
+                                  originY: "right",
+                                }}
+                                viewport={{ once: true }}
+                                transition={{
+                                  duration: 3,
+                                  delay: 1,
+                                  ease: [0.25, 1, 0.5, 1],
+                                  delayChildren: 0.8,
+                                }}
                               >
                                 <motion.div
                                   className="w-[85%] h-[85%] rounded-full bg-[linear-gradient(227deg,rgba(255,255,255,0.80)_13.3%,#A2051F_82.16%)] absolute top-[18px] right-[10px]"
-                                  variants={animationOptions}
+                                  initial={{
+                                    scale: 0,
+                                    originX: "top",
+                                    originY: "right",
+                                  }}
+                                  whileInView={{
+                                    scale: 1,
+                                    originX: "top",
+                                    originY: "right",
+                                  }}
+                                  viewport={{ once: true }}
+                                  transition={{
+                                    duration: 3,
+                                    delay: 1.4,
+                                    ease: [0.25, 1, 0.5, 1],
+                                    delayChildren: 0.8,
+                                  }}
                                 >
                                   <motion.div
                                     className="w-[82%] h-[82%] rounded-full bg-black border border-[#A40E26] absolute top-[14px] right-[12px]"
-                                    variants={animationOptions}
+                                    initial={{
+                                      scale: 0,
+                                      originX: "top",
+                                      originY: "right",
+                                    }}
+                                    whileInView={{
+                                      scale: 1,
+                                      originX: "top",
+                                      originY: "right",
+                                    }}
+                                    viewport={{ once: true }}
+                                    transition={{
+                                      duration: 3,
+                                      delay: 1.8,
+                                      ease: [0.25, 1, 0.5, 1],
+                                      delayChildren: 0.8,
+                                    }}
                                   >
                                     <motion.div
                                       className="w-[74%] h-[74%] rounded-full bg-[linear-gradient(227deg,rgba(255,255,255,0.80)_13.3%,#A2051F_82.16%)] absolute top-[16px] right-[20px]"
-                                      variants={animationOptions}
+                                      initial={{
+                                        scale: 0,
+                                        originX: "top",
+                                        originY: "right",
+                                      }}
+                                      whileInView={{
+                                        scale: 1,
+                                        originX: "top",
+                                        originY: "right",
+                                      }}
+                                      viewport={{ once: true }}
+                                      transition={{
+                                        duration: 3,
+                                        delay: 2.2,
+                                        ease: [0.25, 1, 0.5, 1],
+                                      }}
                                     >
-                                      <motion.div className="w-[62%] h-[62%] rounded-full bg-black border border-[#A40E26] absolute top-[16px] right-[20px]"></motion.div>
+                                      <motion.div
+                                        initial={{
+                                          scale: 0,
+                                          originX: "top",
+                                          originY: "right",
+                                        }}
+                                        whileInView={{
+                                          scale: 1,
+                                          originX: "top",
+                                          originY: "right",
+                                        }}
+                                        viewport={{ once: true }}
+                                        transition={{
+                                          duration: 3,
+                                          delay: 2.6,
+                                          ease: [0.25, 1, 0.5, 1],
+                                        }}
+                                        className="w-[62%] h-[62%] rounded-full bg-black border border-[#A40E26] absolute top-[16px] right-[20px]"
+                                      ></motion.div>
                                     </motion.div>
                                   </motion.div>
                                 </motion.div>

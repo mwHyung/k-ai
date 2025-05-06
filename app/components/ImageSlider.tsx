@@ -58,8 +58,12 @@ const ImageSlider = () => {
   return (
     <div className="w-full relative overflow-hidden">
       <div className="z-10 absolute top-0 left-0 w-full h-full bg-[linear-gradient(90deg,rgba(255,255,255,0.00)_51.43%,#000_92.71%),linear-gradient(90deg,rgba(0,0,0,1)_0%,rgba(0,0,0,0.25)_51.74%)] " />
-      <div className="flex">
-        <div className="flex animate-[loopScroll_20s_linear_infinite]">
+      <div className="flex h-12">
+        {" "}
+        {/* Added fixed height */}
+        <div className="flex animate-[loopScroll_20s_linear_infinite] min-w-max">
+          {" "}
+          {/* Added min-width-max */}
           {images.map((image) => (
             <div key={image.id} className="flex-shrink-0 mx-10">
               <Image
@@ -67,7 +71,7 @@ const ImageSlider = () => {
                 alt={image.alt}
                 width={140}
                 height={48}
-                className="min-h-12 min-w-36 object-contain"
+                className="h-12 w-[140px] object-contain"
               />
             </div>
           ))}
@@ -78,12 +82,14 @@ const ImageSlider = () => {
                 alt={image.alt}
                 width={140}
                 height={48}
-                className="min-h-12 min-w-36 object-contain"
+                className="h-12 w-[140px] object-contain"
               />
             </div>
           ))}
         </div>
-        <div className="flex animate-[loopScroll_20s_linear_infinite]" style={{ animationDelay: "-10s" }}>
+        <div className="flex animate-[loopScroll_20s_linear_infinite] min-w-max" style={{ animationDelay: "-10s" }}>
+          {" "}
+          {/* Added min-width-max */}
           {images.map((image) => (
             <div key={`${image.id}-second`} className="flex-shrink-0 mx-10">
               <Image
@@ -91,7 +97,7 @@ const ImageSlider = () => {
                 alt={image.alt}
                 width={140}
                 height={48}
-                className="min-h-12 min-w-36 object-contain"
+                className="h-12 w-[140px] object-contain"
               />
             </div>
           ))}
@@ -102,7 +108,7 @@ const ImageSlider = () => {
                 alt={image.alt}
                 width={140}
                 height={48}
-                className="min-h-12 min-w-36 object-contain"
+                className="h-12 w-[140px] object-contain"
               />
             </div>
           ))}

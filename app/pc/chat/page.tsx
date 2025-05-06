@@ -164,16 +164,8 @@ export default function ChatPage() {
               <Swiper
                 modules={[Navigation]}
                 navigation={{
-                  prevEl: swiperNavPrev.current,
-                  nextEl: swiperNavNext.current,
-                }}
-                onBeforeInit={(swiper) => {
-                  if (typeof swiper.params.navigation !== "boolean") {
-                    if (swiper.params.navigation) {
-                      swiper.params.navigation.prevEl = swiperNavPrev.current;
-                      swiper.params.navigation.nextEl = swiperNavNext.current;
-                    }
-                  }
+                  prevEl: ".button-prev",
+                  nextEl: ".button-next",
                 }}
                 slidesPerView="auto"
                 spaceBetween={16}
@@ -218,20 +210,16 @@ export default function ChatPage() {
               </Swiper>
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                 <button
-                  ref={swiperNavPrev}
-                  className="absolute right-145 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center shadow hover:bg-gray-100 z-10 cursor-pointer"
+                  className="button-prev absolute right-145 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center shadow hover:bg-gray-100 z-10 cursor-pointer"
                   aria-label="이전"
-                  tabIndex={0}
                 >
                   <svg width="20" height="20" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
                 <button
-                  ref={swiperNavNext}
-                  className="absolute left-145 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center shadow hover:bg-gray-100 z-10 cursor-pointer"
+                  className="button-next absolute left-145 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center shadow hover:bg-gray-100 z-10 cursor-pointer"
                   aria-label="다음"
-                  tabIndex={0}
                 >
                   <svg width="20" height="20" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

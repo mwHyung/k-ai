@@ -18,7 +18,7 @@ const lineVariants = {
   onscreen: {
     opacity: 0.3,
     transition: {
-      duration: 0.8,
+      duration: 1.2,
     },
   },
 };
@@ -26,7 +26,7 @@ const lineVariants = {
 const imageVariants = {
   offscreen: {
     opacity: 0,
-    rotate: -90,
+    rotate: -180,
   },
   onscreen: {
     opacity: 1,
@@ -49,7 +49,7 @@ const textVariants = {
     opacity: 1,
     transition: {
       duration: 0.8,
-      delay: 3.2,
+      delay: 2,
     },
   },
 };
@@ -78,7 +78,7 @@ const CircularFeatures: React.FC = () => {
         </motion.div>
         {/* Background image with rotation animation */}
         <motion.div
-          className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px]"
+          className="absolute top-[55%] left-1/2 -translate-x-69 -translate-y-1/2 w-[550px] h-[550px]"
           variants={imageVariants}
         >
           <Image
