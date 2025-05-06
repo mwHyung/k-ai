@@ -60,8 +60,6 @@ function ImageChange() {
 
 export default function ChatPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const swiperNavPrev = useRef<HTMLButtonElement>(null);
-  const swiperNavNext = useRef<HTMLButtonElement>(null);
   const [selectedSlide, setSelectedSlide] = useState(-1);
   const [typingText, setTypingText] = useState("");
   const liRef = useRef<HTMLLIElement>(null);
