@@ -124,10 +124,15 @@ export default function ChatPage() {
           </nav>
         </div>
         {/* 하단 프로필 */}
-        <div className="px-4 py-3">
-          <div className="flex items-center gap-3 mt-auto px-1.5 py-3">
-            <Image src={USER.avatar} alt="프로필" width={40} height={40} className="rounded-full" />
-            <div className="flex items-center justify-between w-full flex-1">
+        <div className="flex px-4 py-3 overflow-hidden">
+          <div className="flex flex-1 basis-[224px] shrink-0 items-center gap-3 mt-auto py-3 px-0">
+            <Image src={USER.avatar} alt="프로필" width={40} height={40} className="rounded-full shrink-0" />
+
+            <div
+              className={`flex shrink-0 items-center justify-between w-full flex-1 transition-all ${
+                sidebarOpen ? "opacity-100 duration-300 delay-300" : "opacity-0 duration-75 delay-0"
+              }`}
+            >
               <div>
                 <div className="text-sm leading-[1.28] text-[#1c1c1c]">{USER.name}</div>
                 <div className="text-xs text-[#8f8f8f] leading-[1.5]">{USER.plan}</div>
