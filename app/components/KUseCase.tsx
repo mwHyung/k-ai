@@ -208,7 +208,7 @@ export default function KUseCase() {
               </svg>
             </button>
             <div className="relative flex items-center justify-start w-fit">
-              <div className="swiper-pagination !relative flex items-center justify-start gap-14" />
+              <div className="swiper-pagination !relative flex items-center justify-start gap-6 !top-0" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-0.5 bg-[#F82929]">
                 <div
                   ref={progressBarRef}
