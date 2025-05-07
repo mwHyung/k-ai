@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
@@ -160,7 +160,7 @@ export default function ChatPage() {
             <div className="w-[432px] h-[300px] rounded-xl bg-[linear-gradient(270deg,rgba(255,255,255,0.00)_0%,#FFF_100%)] absolute top-0 left-0 z-10" />
             <div className="w-full relative">
               <Swiper
-                modules={[Navigation]}
+                modules={[Navigation, Autoplay]}
                 navigation={{
                   prevEl: ".button-prev",
                   nextEl: ".button-next",
@@ -169,6 +169,7 @@ export default function ChatPage() {
                 spaceBetween={16}
                 centeredSlides={true}
                 loop={true}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
                 className="relative chat-swiper h-[170px]"
               >
                 {exampleSlides.map((slide, idx) => {

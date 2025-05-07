@@ -2,14 +2,16 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade } from "swiper/modules";
+import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-fade";
+import "swiper/css/pagination";
 import { motion } from "framer-motion";
 
 const VideoSwiper = () => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [slideIndex, setSlideIndex] = useState(0); // Add state for slide index
 
@@ -44,7 +46,7 @@ const VideoSwiper = () => {
   return (
     <div className="w-full h-screen relative">
       <Swiper
-        modules={[Autoplay, EffectFade]}
+        modules={[Autoplay, EffectFade, Pagination]}
         autoplay={{
           delay: 8000,
           disableOnInteraction: false,
@@ -56,6 +58,21 @@ const VideoSwiper = () => {
         className="w-full h-full"
         onSwiper={setSwiper}
         onSlideChange={handleSlideChange}
+        pagination={{
+          el: ".swiper-main-pagination",
+          type: "fraction",
+          formatFractionCurrent: (number) => (number < 10 ? `${number}` : number),
+          formatFractionTotal: (number) => (number < 10 ? `${number}` : number),
+          renderFraction: function (currentClass, totalClass) {
+            return `<span class="${currentClass} text-white mr-[3.438rem] inline-block"></span>
+                    <span class="${totalClass} text-white inline-block"></span>`;
+          },
+        }}
+        onAutoplayTimeLeft={(sCwiper, time, progress) => {
+          if (progressBarRef.current) {
+            progressBarRef.current.style.transform = `scaleX(${progress})`;
+          }
+        }}
       >
         {[1, 2].map((_, index) => (
           <SwiperSlide key={index} className="w-full h-full">
@@ -153,6 +170,13 @@ const VideoSwiper = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-50 flex items-center justify-start w-fit z-20">
+        <div className="swiper-main-pagination" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-0.5 bg-[#F82929]">
+          <div ref={progressBarRef} className="h-full bg-[#262626] origin-right" style={{ transform: "scaleX(0)" }} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -80,7 +80,6 @@ export default function OnnuriPage() {
     );
 
     const observedNode = countRef.current;
-    console.log(observedNode);
     // ref가 있으면 observe 시작
     if (observedNode) {
       observer.observe(observedNode);
@@ -189,7 +188,6 @@ export default function OnnuriPage() {
   useEffect(() => {
     const element = document.querySelector("[data-motion-animation]");
     const items = document.querySelectorAll("[data-motion-item-animation]");
-    console.log(items);
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -709,7 +707,7 @@ export default function OnnuriPage() {
                       initial={{ opacity: 0, rotate: -360 }}
                       whileInView={{ opacity: 1, rotate: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 2, delay: 1.8, ease: [0.25, 1, 0.5, 1] }}
+                      transition={{ duration: 2, delay: 2.6, ease: [0.25, 1, 0.5, 1] }}
                       className="absolute top-1/2 left-1/2 -translate-x-26 -translate-y-1/2 w-[176px] h-[176px] flex flex-col items-center justify-center origin-[57%_50%]"
                     >
                       <Image src="/images/sub/sub_con06-2.png" alt="Framework" width={150} height={176} />
@@ -831,7 +829,7 @@ export default function OnnuriPage() {
                               <motion.div
                                 className="w-full h-full rounded-full bg-black border border-[#A40E26] absolute top-0 right-0 overflow-hidden"
                                 initial={{
-                                  scale: 0,
+                                  scale: 0.1,
                                   originX: "top",
                                   originY: "right",
                                 }}
@@ -851,7 +849,7 @@ export default function OnnuriPage() {
                                 <motion.div
                                   className="w-[85%] h-[85%] rounded-full bg-[linear-gradient(227deg,rgba(255,255,255,0.80)_13.3%,#A2051F_82.16%)] absolute top-[18px] right-[10px]"
                                   initial={{
-                                    scale: 0,
+                                    scale: 0.1,
                                     originX: "top",
                                     originY: "right",
                                   }}
@@ -871,7 +869,7 @@ export default function OnnuriPage() {
                                   <motion.div
                                     className="w-[82%] h-[82%] rounded-full bg-black border border-[#A40E26] absolute top-[14px] right-[12px]"
                                     initial={{
-                                      scale: 0,
+                                      scale: 0.1,
                                       originX: "top",
                                       originY: "right",
                                     }}
@@ -891,7 +889,7 @@ export default function OnnuriPage() {
                                     <motion.div
                                       className="w-[74%] h-[74%] rounded-full bg-[linear-gradient(227deg,rgba(255,255,255,0.80)_13.3%,#A2051F_82.16%)] absolute top-[16px] right-[20px]"
                                       initial={{
-                                        scale: 0,
+                                        scale: 0.1,
                                         originX: "top",
                                         originY: "right",
                                       }}
@@ -909,7 +907,7 @@ export default function OnnuriPage() {
                                     >
                                       <motion.div
                                         initial={{
-                                          scale: 0,
+                                          scale: 0.1,
                                           originX: "top",
                                           originY: "right",
                                         }}

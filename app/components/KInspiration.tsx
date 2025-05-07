@@ -67,11 +67,11 @@ export default function KInspiration() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top top",
+        start: "top center",
         end: "center top",
         toggleActions: "play none none none",
-        pin: true,
-        pinSpacing: true,
+        // pin: true,
+        // pinSpacing: true,
       },
     });
 
@@ -138,7 +138,7 @@ export default function KInspiration() {
         ease: "power2.out",
       },
       {
-        yPercent: -80,
+        yPercent: -60,
         duration: 0.5,
         ease: "power2.out",
         scrollTrigger: {
@@ -146,6 +146,8 @@ export default function KInspiration() {
           start: "top top",
           end: "bottom top",
           toggleActions: "play none none none",
+          pin: true,
+          pinSpacing: true,
           scrub: 0.5,
         },
       }

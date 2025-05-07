@@ -82,11 +82,9 @@ export default function KNews() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top top",
+        start: "top bottom",
         end: "center top",
         toggleActions: "play none none none",
-        pin: true,
-        pinSpacing: true,
       },
     });
 
@@ -139,6 +137,8 @@ export default function KNews() {
           end: "center top",
           toggleActions: "play none none none",
           scrub: 0.5,
+          pin: true,
+          pinSpacing: true,
         },
       }
     );

@@ -217,6 +217,56 @@ export default function KAILab() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const video01Container = document.querySelector("[data-main-video-animation01]");
+  //   if (!video01Container) return;
+
+  //   const video01 = video01Container.querySelector("video");
+  //   if (!video01) return;
+
+  //   let isReverse = false;
+
+  //   const playVideo = (reverse: boolean = false) => {
+  //     video01.currentTime = reverse ? video01.duration : 0;
+  //     if (reverse) {
+  //       const playBackwards: () => void = () => {
+  //         if (video01.currentTime <= 0) {
+  //           video01.removeEventListener("timeupdate", playBackwards);
+  //           togglePlayDirection();
+  //           return;
+  //         }
+  //         video01.currentTime -= 1 / 24; // 30fps로 더 자연스럽게 조정
+  //       };
+  //       video01.addEventListener("timeupdate", playBackwards);
+  //     } else {
+  //       video01.playbackRate = 1.0; // 정방향 재생 속도 정상화
+  //       video01.play().then(() => {
+  //         video01.addEventListener(
+  //           "ended",
+  //           () => {
+  //             togglePlayDirection();
+  //           },
+  //           { once: true }
+  //         );
+  //       });
+  //     }
+  //   };
+
+  //   const togglePlayDirection = () => {
+  //     isReverse = !isReverse;
+  //     playVideo(isReverse);
+  //   };
+
+  //   // 초기 재생 시작
+  //   playVideo(false);
+
+  //   return () => {
+  //     video01.pause();
+  //     video01.currentTime = 0;
+  //     video01.removeEventListener("ended", togglePlayDirection);
+  //   };
+  // }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -261,7 +311,21 @@ export default function KAILab() {
           </div>
 
           <div className="col-span-4 relative max-w-[42.938rem] w-full h-[45.875rem]" data-main-video-animation>
-            <video src="/video/lab_video.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+            <div className="relative w-full h-full">
+              <div className="absolute top-0 left-0 w-full h-full" data-main-video-animation01>
+                <video
+                  src="/video/lab_video_reverse.mp4"
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* <div className="absolute top-0 left-0 w-full h-full" data-main-video-animation02>
+                <video src="/video/lab_video.mp4" muted playsInline autoPlay className="w-full h-full object-cover" />
+              </div> */}
+            </div>
           </div>
 
           <div ref={contentRef} className="col-span-3 space-y-8">
